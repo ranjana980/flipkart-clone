@@ -1,10 +1,105 @@
 .App {
   text-align: center;
+  /* background-color: aliceblue; */
+}
+
+.main-div {
+  padding: 50px;
+
+}
+
+.table {
+  width: 100%;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.pay-card {
+  text-align: center;
+  z-index: 1;
+  left: 300px;
+  top: 60%;
+  position: absolute;
+  /* height: 200px; */
+  background-color: #f1dff8;
+}
+
+.is-invalid {
+  padding: 5px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid red;
+  width: 90%;
+}
+
+.triangle {
+  z-index: 999;
+  position: absolute;
+  margin-top: -16px;
+  margin-left: 145px;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid white;
+  transform: rotate(0deg);
+}
+
+.text-right {
+  display: flex;
+}
+
+.text-right ul {
+
+  display: flex;
+  /* width: 24%; */
+  min-width: 13%;
+  max-width: 100%;
+  justify-content: space-between;
+  text-decoration: none !important;
+
+}
+
+.text-right li {
+  list-style: none;
+}
+
+.form-control {
+  padding: 5px;
+  margin-top: 10px;
+  /* border-radius: 10px; */
+  border: 1px solid lightblue;
+  width: 90%;
+}
+
+.add-btn {
+  float: right;
+  background-color: blue;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.errText {
+  color: red !important;
+  font-size: 10px !important;
+  position: relative;
+  left: 10px;
+  /* right: 40px; */
+  text-align: left;
+}
+
+.cancel {
+  color: white !important;
+  background-color: red;
+  margin-top: 10px !important;
+  font-size: 10px !important;
+  position: relative;
+  right: 30px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -24,6 +119,132 @@
   color: white;
 }
 
+.nav {
+  background: currentColor;
+  padding-bottom: 10px;
+}
+
+.active {
+  background-color: rgb(205, 205, 230);
+  height: 20px;
+  width: 20px;
+  color: white;
+  text-decoration: none !important;
+  border-radius: 50%;
+}
+
+.prev {
+  color: rgb(36, 138, 219) !important;
+}
+
+li {
+  list-style: none;
+}
+
+.search {
+  top: 10px;
+  font-size: 34px !important;
+  position: relative;
+  right: 42px;
+}
+
+.sm-div:hover {
+  background: lightgray;
+  border-radius: 2px;
+}
+
+.footer-div {
+  text-align: start;
+  margin-left: 35px;
+  margin-top: 20px;
+  padding: 21px;
+}
+
+.footer {
+  background-color: rgba(10, 1, 1, 0.868);
+  margin-top: 82px;
+  height: 240px;
+  padding: 10px;
+}
+
+.close {
+  font-size: 20px;
+  position: relative;
+  bottom: 55px;
+  left: 10px;
+}
+
+.priceO {
+
+  -webkit-text-decoration-line: line-through;
+  /* Safari */
+  text-decoration-line: line-through;
+
+
+}
+
+.size {
+  background-color: lightblue;
+  border-radius: 5px;
+  height: 30px;
+  margin-left: 5px;
+  width: 30px;
+  /* margin-top: 10px; */
+  width: auto;
+  position: relative;
+  padding: 5px;
+  top: 7px;
+}
+
+/* .main-page{
+  background-image: url(https://thumbs.dreamstime.com/b/happy-shopping-girl-19028832.jpg);
+  background-repeat: no-repeat;
+  height: 38rem;
+  width: 90%;
+} */
+.side-box {
+  box-shadow: 2px 2px 2px 2px rgba(0.2, 0.2, 0.2, 0.2);
+  height: 31rem;
+  overflow-y: scroll;
+
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px
+}
+
+::-webkit-scrollbar-button {
+  background: #ccc
+}
+
+::-webkit-scrollbar-track-piece {
+  background: #888
+}
+
+::-webkit-scrollbar-thumb {
+  background: #eee
+}
+
+.box {
+  box-shadow: 2px 2px 2px 2px rgba(0.2, 0.2, 0.2, 0.2);
+
+}
+
+.main-page {
+  box-shadow: 2px 2px 2px 2px rgba(0.2, 0.2, 0.2, 0.2);
+
+
+}
+
+.carousel .thumbs {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -32,7 +253,15 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .footer {
+    height: 63rem;
+    padding: 0px;
   }
 }
