@@ -1,19 +1,15 @@
-// import logo from './logo.svg';
 import './App.css';
-// import StudentList from './StudentList';
 import rootReducer from "./store/rootReducer";
-import React, { Fragment } from 'react';
+import React from 'react';
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
-import { BrowserRouter, Route, Routes, Router } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from "react-redux";
-import ListForm from './Form/ListForm';
-import AddForm from './Form/AddForm';
-import EditForm from './Form/EditForm';
-import MainPage from './Form/MainPage';
+import MainPage from './form/main-page';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from './Form/Navbar';
-import AdmimPage from './Form/admimPage';
+import Navbar from './form/navbar';
+import { ProductList } from './admin-product/product-list';
+
 const store = createStore(rootReducer, applyMiddleware(thunk));
 function App() {
   return (
@@ -23,10 +19,7 @@ function App() {
         <BrowserRouter>
           <Routes>
           <Route index element={<MainPage />} />
-            <Route path='/ListForm' element={<ListForm />} />
-            <Route path='/AddForm' element={<AddForm />} />
-            <Route path='/EditForm' element={<EditForm />} />
-            <Route path='/admimPage' element={<AdmimPage/>}/>
+            <Route path='/ListForm' element={<ProductList />} />
           </Routes>
         </BrowserRouter>
       </Provider>
