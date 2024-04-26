@@ -1,7 +1,8 @@
-import FormDataReducer from "./formDataReducer";
+import AuthReducer from "../entities/auth-reducer"
 import { combineReducers } from "redux";
+
 const rootReducer = combineReducers({
-  FormDataReducer
+  auth: AuthReducer
 });
 
 export default rootReducer;

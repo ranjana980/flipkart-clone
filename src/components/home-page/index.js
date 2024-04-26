@@ -4,13 +4,11 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import axios from "axios";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import {
-  bannerSliderItems,
-  sellingSliderItems,
-  sideMenuItems,
-} from "../utils/constant";
-import { baseUrl } from "../api/baseUrl";
-import { productList } from "../api/routes";
+
+import { baseUrl } from "../../api/baseUrl";
+import { productList } from "../../api/routes";
+import TopHeader from "../../section-component/top-header";
+import { sideMenuItems, bannerSliderItems, sellingSliderItems } from "../../utils/constant";
 
 export default function MainPage() {
   const [Isopen1, setIsopen1] = useState(false);
@@ -66,7 +64,8 @@ export default function MainPage() {
   };
 
   return (
-    <>
+    <div className="product-container">
+      <TopHeader />
       <div className="grid grid-cols-12">
         <div className="lg:col-span-2 xs:col-span-0 side-box lg:ml-2 mt-3  p-2 lg:block md:block  xs:hidden">
           <div className="d-flex justify-content-between w-100 mt-3 bg-[#333]   ">
@@ -207,6 +206,6 @@ export default function MainPage() {
           ))}
         </Carousel>
       </div>
-    </>
+    </div>
   );
 }

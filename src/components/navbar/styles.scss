@@ -1,0 +1,68 @@
+.navbar {
+    background-color: #2874f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-search {
+        display: flex;
+        background-color: white;
+        align-items: center;
+        padding: 0 16px;
+
+        &-icon {
+            color: #2874f0;
+        }
+
+        input {
+            min-width: 564px;
+            border-radius: 2px 0 0 2px;
+            border: 0;
+            outline: 0 none;
+            font-size: 14px;
+            height: 36px;
+            width: 100%;
+        }
+
+
+    }
+
+    &-container {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+
+        a {
+            text-decoration: none;
+        }
+
+    }
+
+    &-heading {
+        color: white;
+        font-weight: 700;
+        font-style: italic;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 1.75rem;
+    }
+
+    &-button {
+        background-color: white;
+        color: #2874f0;
+        font-weight: 500;
+        background-color: #fff;
+        cursor: pointer;
+        border-radius: 2px;
+        height: 32px;
+        padding: 0px 40px;
+        border: 1px solid #dbdbdb;
+    }
+
+    &-cart {
+        color: white;
+    }
+
+    &-notification {
+        color: white
+    }
+}

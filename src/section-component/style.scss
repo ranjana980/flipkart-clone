@@ -1,0 +1,24 @@
+.top-header-product {
+    display: flex;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    height: calc(100% - 16px);
+    z-index: 10;
+
+    &-box {
+        padding: 16px;
+
+    }
+
+    &-lable {
+        font-family: inter_semi_bold, fallback-inter_semi_bold, Arial, sans-serif;
+        font-size: 14px;
+        display: flex;
+        font-weight: bolder;
+        align-items: center;
+        justify-content: center;
+    }
+
+}

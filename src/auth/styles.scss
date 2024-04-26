@@ -1,0 +1,132 @@
+.auth {
+    display: flex;
+    margin: 16px auto 0;
+    justify-content: center;
+    width: 100%;
+
+    &-container {
+        display: flex;
+        width: 840px;
+        min-height: 350px;
+    }
+
+    &-button {
+        background: #fb641b;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+        border: none;
+        color: #fff;
+        margin-top: 16px;
+        width: 100%;
+        height: 48px;
+        font-size: 15px;
+        font-weight: 500;
+
+        &-otp {
+            background: #2874f0;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+            border: none;
+            color: #fff;
+            margin-bottom: 25px;
+            margin-top: 16px;
+            width: 100%;
+            height: 48px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+    }
+
+    &-form {
+        background: white;
+        padding: 56px 35px 16px;
+        width: 60%;
+
+        span {
+            font-size: 16px;
+        }
+
+        b {
+            color: #2874f0;
+        }
+
+        p {
+            color: #878787;
+            font-size: 12px;
+            font-weight: 400;
+
+            a {
+                color: #2874f0 !important;
+                cursor: pointer;
+            }
+        }
+
+        &-otp {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+
+            &-input {
+                border-radius: 0px;
+                width: 30px !important;
+            }
+        }
+
+        .error-msg {
+            margin-top: 10px;
+            color: red;
+            display: flex;
+            align-items: start;
+        }
+
+        p {
+            margin-top: 34px;
+        }
+
+        input {
+            padding: 8px 10px 10px 0;
+            width: 100%;
+            color: #000;
+            font-size: inherit;
+            background: #fff;
+            border: none;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+            font-size: 16px;
+
+            :focus {
+                outline: none;
+                box-shadow: none !important;
+
+            }
+        }
+    }
+
+    &-banner {
+        color: white;
+        background-color: #2874f0;
+        padding: 40px 33px;
+        text-align: start;
+        width: 40%;
+
+        &-image {
+            height: 225px !important;
+            margin-top: 50px;
+        }
+
+    }
+
+    &-bottom-section {
+        color: #2874f0;
+        font-weight: 500;
+        text-align: center;
+        margin-top: 160px;
+
+        h6 {
+            a {
+                text-decoration: none;
+            }
+
+
+        }
+    }
+}
