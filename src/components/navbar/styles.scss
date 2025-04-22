@@ -1,30 +1,30 @@
 .navbar {
-    background-color: #2874f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: white;
 
     &-search {
         display: flex;
-        background-color: white;
+        background-color: #f0f5ff;
         align-items: center;
-        padding: 0 16px;
+        border-radius: 10px;
+        padding: 0 20px;
+        font-weight: 600;
+        color: black;
 
         &-icon {
-            color: #2874f0;
+            color: black;
+            margin-right: 10px;
         }
 
         input {
             min-width: 564px;
-            border-radius: 2px 0 0 2px;
+            border-radius: 10px;
             border: 0;
+            background-color: #f0f5ff;
             outline: 0 none;
             font-size: 14px;
             height: 36px;
             width: 100%;
         }
-
-
     }
 
     &-container {
@@ -35,7 +35,6 @@
         a {
             text-decoration: none;
         }
-
     }
 
     &-heading {
@@ -48,21 +47,21 @@
 
     &-button {
         background-color: white;
-        color: #2874f0;
+        color: black;
         font-weight: 500;
         background-color: #fff;
         cursor: pointer;
         border-radius: 2px;
-        height: 32px;
-        padding: 0px 40px;
-        border: 1px solid #dbdbdb;
+        padding: 0px 20px;
+        border: none;
+        display: flex;
     }
 
     &-cart {
-        color: white;
+        color: black;
     }
 
     &-notification {
-        color: white
+        color: black
     }
 }

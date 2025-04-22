@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import grocery from "../assests/images/top-grocery.png"
 import Phone from "../assests/images/top-phone.png"
 import fashion from "../assests/images/top-fashion.png"
@@ -9,9 +9,18 @@ import travel from "../assests/images/top-travel.png"
 import bebyCare from "../assests/images/top-beby-care.png"
 import twoWheelers from "../assests/images/top-two-wheelers.png"
 import './style.scss'
+import { ExpandLess, ExpandMore } from '@material-ui/icons'
+
 export default function TopHeader() {
+    const [openTopMenu, setopenTopMenu] = useState(false)
+    const [openTopMenu2, setopenTopMenu2] = useState(false)
+    const [openTopMenu3, setopenTopMenu3] = useState(false)
+    const [openTopMenu4, setopenTopMenu4] = useState(false)
+    const [openTopMenu5, setopenTopMenu5] = useState(false)
+
+
     return (
-        <div className='top-header-product'>
+        <div className='top-header-product my-3 mx-3 mt-2'>
             <div className='top-header-product-box'>
                 <img src={grocery} />
                 <span className='top-header-product-lable'>
@@ -24,25 +33,59 @@ export default function TopHeader() {
                     <span>Mobiles</span>
                 </span>
             </div>
-            <div className='top-header-product-box'>
+            <div className='top-header-product-box' onMouseOver={() => setopenTopMenu(true)} onMouseLeave={() => setopenTopMenu(false)}>
                 <img src={fashion} />
                 <span className='top-header-product-lable'>
                     <span>Fashion</span>
+                    {!openTopMenu ? <ExpandMore /> : <ExpandLess />}
                 </span>
+                {openTopMenu && <div className="z-[99] text-nowrap text-black shadow-lg absolute top-15 p-1 bg-white">
+                    <div className='flex justify-between p-2 gap-5  hover:bg-gray-50'><div >Men's Top Wear</div></div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Men's Bottom Wear</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Men's Ethnic</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Men FootWear</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Women FootWear</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Watches & Accessries</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Women Westurn</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Bags,SuiteCase & Luggage</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Kids</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Essentieals</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Winter</div>
+                </div>}
             </div>
-            <div className='top-header-product-box'>
+            <div className='top-header-product-box' onMouseOver={() => setopenTopMenu2(true)} onMouseLeave={() => setopenTopMenu2(false)}>
                 <img src={electronic} />
                 <span className='top-header-product-lable'>
                     <span>Electronics</span>
+                    {!openTopMenu2 ? <ExpandMore /> : <ExpandLess />}
                 </span>
+                {openTopMenu2 && <div className="z-[99] text-nowrap text-black shadow-lg absolute top-15 p-1 bg-white">
+                    <div className='flex justify-between p-2 gap-5 border-b-[1px] hover:bg-gray-50'><div>New customer?</div><div className='text-[blue]'>Sign Up</div></div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>My Profile</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Flipecart Plus Zone</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Orders</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>WishList</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Rewards</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Gift Cards</div>
+                </div>}
             </div>
-            <div className='top-header-product-box'>
+            <div className='top-header-product-box' onMouseOver={() => setopenTopMenu3(true)} onMouseLeave={() => setopenTopMenu3(false)}>
                 <img src={furnitures} />
                 <span className='top-header-product-lable'>
                     <span>Home & Furniture</span>
+                    {!openTopMenu3 ? <ExpandMore /> : <ExpandLess />}
                 </span>
+                {openTopMenu3 && <div className="z-[99] text-nowrap text-black shadow-lg absolute top-15 p-1 bg-white">
+                    <div className='flex justify-between p-2 gap-5 border-b-[1px] hover:bg-gray-50'><div>New customer?</div><div className='text-[blue]'>Sign Up</div></div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>My Profile</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Flipecart Plus Zone</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Orders</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>WishList</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'> Rewards</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Gift Cards</div>
+                </div>}
             </div>
-            <div className='top-header-product-box'>
+            <div className='top-header-product-box' >
                 <img src={apliences} />
                 <span className='top-header-product-lable'>
                     <span>Appliances</span>
@@ -54,17 +97,37 @@ export default function TopHeader() {
                     <span>Travel</span>
                 </span>
             </div>
-            <div className='top-header-product-box'>
+            <div className='top-header-product-box' onMouseOver={() => setopenTopMenu4(true)} onMouseLeave={() => setopenTopMenu4(false)}>
                 <img src={bebyCare} />
                 <span className='top-header-product-lable'>
                     <span>Beauty, Toys & More</span>
+                    {!openTopMenu4 ? <ExpandMore /> : <ExpandLess />}
                 </span>
+                {openTopMenu4 && <div className="z-[99] text-nowrap text-black shadow-lg absolute top-15 p-1 bg-white">
+                    <div className='flex justify-between p-2 gap-5 border-b-[1px] hover:bg-gray-50'><div>New customer?</div><div className='text-[blue]'>Sign Up</div></div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>My Profile</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Flipecart Plus Zone</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Orders</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>WishList</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Rewards</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Gift Cards</div>
+                </div>}
             </div>
-            <div className='top-header-product-box'>
+            <div className='top-header-product-box' onMouseOver={() => setopenTopMenu5(true)} onMouseLeave={() => setopenTopMenu5(false)}>
                 <img src={twoWheelers} />
                 <span className='top-header-product-lable'>
                     <span>Two Wheelers</span>
+                    {!openTopMenu5 ? <ExpandMore /> : <ExpandLess />}
                 </span>
+                {openTopMenu5 && <div className="z-[99] text-nowrap text-black shadow-lg absolute top-15 p-1 bg-white">
+                    <div className='flex justify-between p-2 gap-5 border-b-[1px] hover:bg-gray-50'><div>New customer?</div><div className='text-[blue]'>Sign Up</div></div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>My Profile</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Flipecart Plus Zone</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Orders</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>WishList</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Rewards</div>
+                    <div className='flex justify-between p-2 hover:bg-gray-50'>Gift Cards</div>
+                </div>}
             </div>
         </div>
     )

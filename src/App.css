@@ -199,12 +199,6 @@ li {
   top: 7px;
 }
 
-/* .main-page{
-  background-image: url(https://thumbs.dreamstime.com/b/happy-shopping-girl-19028832.jpg);
-  background-repeat: no-repeat;
-  height: 38rem;
-  width: 90%;
-} */
 .side-box {
   box-shadow: 2px 2px 2px 2px rgba(0.2, 0.2, 0.2, 0.2);
   height: 31rem;
@@ -234,7 +228,7 @@ li {
 
 }
 
-.main-page {
+.home-page {
   box-shadow: 2px 2px 2px 2px rgba(0.2, 0.2, 0.2, 0.2);
 
 
