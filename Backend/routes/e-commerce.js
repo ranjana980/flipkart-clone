@@ -1,0 +1,11 @@
+const express = require('express')
+const router = express.Router()
+const product = require('../controller/product')
+const user = require('../controller/user')
+router.get('/', product.getProduct)
+router.post('/add_product', product.addProduct)
+router.post('/send_otp', user.sendOtp)
+router.post('/verify_otp', user.verifyOtp)
+router.get('/get_user', user.get_user)
+router.post('/sign_in', sign_in_user)
+module.exports = router

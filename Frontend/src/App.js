@@ -8,10 +8,10 @@ import { Provider } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ProductList } from './admin-product/product-list';
 import Navbar from './components/navbar';
-import TopHeader from './section-component/top-header';
 import { Auth } from './auth/auth';
 import Footer from './components/footer';
 import Home from './components/home-page';
+import HeaderMenu from './section-component/HeaderMenu';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 function App() {
@@ -20,7 +20,7 @@ function App() {
       <Provider store={store}>
         <BrowserRouter>
           <Navbar />
-          <TopHeader />
+          <HeaderMenu />
           <Routes>
             <Route index element={<Home />} />
             <Route path="/account" element={<Auth />} />

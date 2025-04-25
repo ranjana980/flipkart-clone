@@ -13,7 +13,7 @@ export default function Navbar() {
     return (
         <div className="navbar  bg-[white]">
             <div className='navbar-container'>
-                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/fkheaderlogo_exploreplus-44005d.svg" className='mr-10' />
+                <Link href="/"> <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/fkheaderlogo_exploreplus-44005d.svg" className='mr-10' /></Link>
                 <div className="navbar-search">
                     <Search className="navbar-search-icon"
                     />
@@ -47,8 +47,6 @@ export default function Navbar() {
                         Cart
                     </b>
                 </div>
-                {/* <NotificationsOutlined className='navbar-notification'
-                /> */}
                 <div className='flex gap-2'> <StoreOutlined /> Become a Seller</div>
                 <div >
                     <MoreVert onMouseOver={() => setOpenLoginMenu2(true)} onMouseLeave={() => setOpenLoginMenu2(false)} className='ml-10' />

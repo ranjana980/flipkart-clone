@@ -3,7 +3,7 @@ import { AuthBanner } from "./auth-banner";
 import './styles.scss'
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { sendOtpAction } from "../entities/auth-reducer";
+import { sendOtpAction, verifyOtpAction } from "../entities/auth-reducer";
 import swal from "sweetalert";
 
 export const Auth = () => {
@@ -47,32 +47,45 @@ export const Auth = () => {
     setOTP(newOTP);
   };
 
-  const handleSubmit = (emailValue, type) => {
-    if (type !== 'resend') {
-      if (emailValue) {
-        const emailRegex = /^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$/;
-        if ((emailRegex).test(email)) {
-          const onSuccess = () => {
-            navigate('/account?verify_otp=true')
+  const handleSubmit = (email, type) => {
+    if (!otp) {
+      setEmailError('Please Enter OtP')
+      if (type !== 'resend') {
+        if (email) {
+          const emailRegex = /^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$/;
+          if ((emailRegex).test(email)) {
+            const onSuccess = () => {
+              navigate('/account?verify_otp=true')
+            }
+            dispatch(sendOtpAction({ email }, onSuccess))
           }
-          dispatch(sendOtpAction({ emailValue }, onSuccess))
+          else setEmailError('Invalid email')
         }
-        else setEmailError('Invalid email')
+        else {
+          setEmailError("Email is Required!")
+        }
       }
       else {
-        setEmailError("Email is Required!")
+        const onSuccess = () => {
+          localStorage.setItem("user", encodeURIComponent(user))
+          swal({
+            title: "Success",
+            text: "Resend OTP SuccessFully!",
+            icon: "success",
+            button: "Okay",
+          });
+        }
+        dispatch(verifyOtpAction({ otp }, onSuccess))
       }
     }
     else {
-      const onSuccess = () => {
-        swal({
-          title: "Success",
-          text: "Resend OTP SuccessFully!",
-          icon: "success",
-          button: "Okay",
-        });
-      }
-      dispatch(sendOtpAction({ emailValue }, onSuccess))
+      swal({
+        title: "Success",
+        text: "OTP Verified SuccessFully!",
+        icon: "success",
+        button: "Okay",
+      });
+      navigate('/')
     }
   }
 
@@ -84,7 +97,7 @@ export const Auth = () => {
         <div className="auth-form">
           {verify_otp && <span>Please enter the OTP sent to {data.email}.</span>}
           {!verify_otp ? <input
-            placeholder="Enter email"
+            placeholder="Enter Email/Mobile Number"
             value={email}
             className="form-control"
             onChange={handleChange}
@@ -104,13 +117,13 @@ export const Auth = () => {
           {emailError && <span className="error-msg">{emailError}</span>}
           {!verify_otp && <p>By continuing, you agree to Flipkart's <a>Terms of Use</a> and <a>Privacy Policy</a>.</p>}
           <button
-            onClick={handleSubmit(email, 'login')}
+            onClick={() => handleSubmit(email, 'login')}
             className={`${verify_otp ? 'auth-button-otp' : 'auth-button'}`}
           >
             {login ? 'Request OTP' : signup ? 'Continue' : 'Verify Otp'}
           </button>
-          {verify_otp ? <span >Not received your code? <b><a onClick={handleSubmit(data.email, 'resend')}>Resend code</a></b></span> : <div className="auth-bottom-section">
-            {login ? <h6> New to Here?<Link to='/account?signup=true'> Create an account</Link></h6> : <h6>Existing User?<Link to='/account?login=true'> Login</Link></h6>}
+          {verify_otp ? <span >Not received your code? <b><a onClick={() => handleSubmit(data.email, 'resend')}>Resend code</a></b></span> : <div className="auth-bottom-section">
+            {login ? <h6> New to Flipecart?<Link to='/account?signup=true'> Create an account</Link></h6> : <h6>Existing User?<Link to='/account?login=true'> Login</Link></h6>}
           </div>}
         </div>
       </div>

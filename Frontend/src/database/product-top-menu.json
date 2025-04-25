@@ -1,0 +1,246 @@
+[
+    {
+        "name": "Grocery",
+        "menu": [
+            {
+                "title": "Men's Top Wear"
+            },
+            {
+                "title": "Men's Bottom Wear"
+            },
+            {
+                "title": "Men's Ethnic"
+            },
+            {
+                "title": "Men FootWear"
+            },
+            {
+                "title": "Women FootWear"
+            },
+            {
+                "title": "Watches & Accessries"
+            },
+            {
+                "title": "Women Westurn"
+            },
+            {
+                "title": "Bags,SuiteCase & Luggage"
+            },
+            {
+                "title": "Kids"
+            },
+            {
+                "title": "Essentieals"
+            },
+            {
+                "title": "Winter"
+            }
+        ],
+        "icon": true
+    },
+    {
+        "name": "Mobile",
+        "menu": [
+            {
+                "title": "Men's Top Wear"
+            },
+            {
+                "title": "Men's Bottom Wear"
+            },
+            {
+                "title": "Men's Ethnic"
+            },
+            {
+                "title": "Men FootWear"
+            },
+            {
+                "title": "Women FootWear"
+            },
+            {
+                "title": "Watches & Accessries"
+            },
+            {
+                "title": "Women Westurn"
+            },
+            {
+                "title": "Bags,SuiteCase & Luggage"
+            },
+            {
+                "title": "Kids"
+            },
+            {
+                "title": "Essentieals"
+            },
+            {
+                "title": "Winter"
+            }
+        ],
+        "icon": true
+    },
+    {
+        "name": "Fashine",
+        "menu": [
+            {
+                "title": "Audio"
+            },
+            {
+                "title": " Camera's & Accessries"
+            },
+            {
+                "title": " Computer Perpherials"
+            },
+            {
+                "title": "Electronics CST Store"
+            },
+            {
+                "title": "Gaming"
+            },
+            {
+                "title": "Health & Personal care"
+            },
+            {
+                "title": "Laptop Accessries"
+            },
+            {
+                "title": "Laptop & Desktop"
+            },
+            {
+                "title": "Mobile Accessries"
+            },
+            {
+                "title": "Power Bank"
+            },
+            {
+                "title": "Smart Home Automation"
+            },
+            {
+                "title": "Smart Wearable"
+            },
+            {
+                "title": "Storage"
+            },
+            {
+                "title": "Tablets"
+            }
+        ],
+        "icon": true
+    },
+    {
+        "name": "Electronics",
+        "menu": [
+            {}
+        ],
+        "icon": true
+    },
+    {
+        "name": "Home & Furniture",
+        "menu": [
+            {
+                "title": "Home Furnishings"
+            },
+            {
+                "title": "Furnitures"
+            },
+            {
+                "title": "Living Room Furniture"
+            },
+            {
+                "title": "Kitchen & Dining"
+            },
+            {
+                "title": "Bedroom Furniture"
+            },
+            {
+                "title": "Space Saving furnitures"
+            },
+            {
+                "title": "Home Decore"
+            },
+            {
+                "title": "Tools & Utility"
+            },
+            {
+                "title": "Work Space furtniture"
+            },
+            {
+                "title": "Kids Furniture"
+            },
+            {
+                "title": "Lighting & Electricals"
+            },
+            {
+                "title": "Clining & Bath"
+            },
+            {
+                "title": "Pet & garding"
+            }
+        ],
+        "icon": true
+    },
+    {
+        "name": "Appliances",
+        "menu": [
+            {}
+        ],
+        "icon": true
+    },
+    {
+        "name": "Travel",
+        "menu": [
+            {}
+        ],
+        "icon": true
+    },
+    {
+        "name": "Beauty,Toys & More",
+        "menu": [
+            {
+                "title": "Beauty & Personal Care"
+            },
+            {
+                "title": "Men's Grooming"
+            },
+            {
+                "title": "Food & Drinks"
+            },
+            {
+                "title": "Nutration & Health Care"
+            },
+            {
+                "title": "Baby Care"
+            },
+            {
+                "title": "Toys & School Supplies"
+            },
+            {
+                "title": "Sports & fitness"
+            },
+            {
+                "title": "Books & Music"
+            },
+            {
+                "title": "Music"
+            },
+            {
+                "title": "stationary & Office Supplies"
+            },
+            {
+                "title": "Auto Accessries"
+            },
+            {
+                "title": "Safty & Hygien Esse"
+            }
+        ]
+    },
+    {
+        "name": "Two Whilers",
+        "menu": [
+            {
+                "title": "two vehical"
+            },
+            {
+                "title": "Electric vehical"
+            }
+        ]
+    }
+]
