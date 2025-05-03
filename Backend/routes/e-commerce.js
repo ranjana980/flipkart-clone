@@ -6,6 +6,5 @@ router.get('/', product.getProduct)
 router.post('/add_product', product.addProduct)
 router.post('/send_otp', user.sendOtp)
 router.post('/verify_otp', user.verifyOtp)
-router.get('/get_user', user.get_user)
-router.post('/sign_in', sign_in_user)
+router.get('/get_user/:id', user.getUser)
 module.exports = router

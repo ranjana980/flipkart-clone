@@ -12,9 +12,16 @@ import { Auth } from './auth/auth';
 import Footer from './components/footer';
 import Home from './components/home-page';
 import HeaderMenu from './section-component/HeaderMenu';
+import FlipCartPlusZone from './pages/flipcart-plus-zone';
+import GiftCardsStore from './pages/gift-cards-store';
+import CartItem from './pages/cart';
+import BecomeASeller from './pages/become-a-seller';
+import UserProfile from './pages/user-profile';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 function App() {
+
+
   return (
     <div className="App">
       <Provider store={store}>
@@ -25,6 +32,11 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/account" element={<Auth />} />
             <Route path='/ListForm' element={<ProductList />} />
+            <Route path="/plus" element={<FlipCartPlusZone />} />
+            <Route path="/gift-cards-store" element={<GiftCardsStore />} />
+            <Route path="/cart" element={<CartItem />} />
+            <Route path="/userProfile" element={<UserProfile />} />
+            <Route path="/become-a-seller" element={<BecomeASeller />} />
           </Routes>
           <Footer />
         </BrowserRouter>

@@ -7,7 +7,7 @@ import { footerlinks } from './constant';
 export default function Footer() {
     return (
         <>
-            <footer className="footer">
+            <footer className="footer ">
                 {footerlinks.map(({ lable, lableChild, socialLink }) => (
                     <div className={`footer-section ${lable === "Mail Us:" ? "footer-section-border" : ""}`}>
                         <h3 className="footer-section-title">{lable}</h3>

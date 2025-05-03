@@ -1,10 +1,9 @@
 import axios from "axios";
 import { baseUrl } from "../api/baseUrl";
-import { sendOtp, getUser } from "../api/routes";
+import { sendOtp, getUser, verifyOtp } from "../api/routes";
 
 // Initial state
 const initialValues = {
-    data: null,
     fetching: false,
     error: null,
     user: null
@@ -29,13 +28,19 @@ export default function AuthReducer(state = initialValues, action) {
         case ACTION_TYPE.SEND_OTP_REQUEST:
             return { ...state, fetching: true };
         case ACTION_TYPE.SEND_OTP_SUCCESS:
-            return { ...state, fetching: false, data: action.payload };
+            return { ...state, fetching: false, user: action.payload };
         case ACTION_TYPE.SEND_OTP_FAILUIR:
             return { ...state, fetching: false, error: action.payload };
+        case ACTION_TYPE.VERIFY_OTP_REQUEST:
+            return { ...state, fetching: true, user: null };
+        case ACTION_TYPE.VERIFY_OTP_SUCCESS:
+            return { ...state, fetching: false, user: action.payload };
+        case ACTION_TYPE.VERIFY_OTP_FAILURE:
+            return { ...state, fetching: false, error: action.payload, user: null };
         case ACTION_TYPE.CREATE_ACCOUNT_REQUEST:
             return { ...state, fetching: true };
         case ACTION_TYPE.CREATE_ACCOUNT_SUCCESS:
-            return { ...state, fetched: false, data: action.payload };
+            return { ...state, fetched: false, user: action.payload };
         case ACTION_TYPE.CREATE_ACCOUNT_FAILURE:
             return { ...state, fetching: false, error: action.payload };
         default:
@@ -56,7 +61,7 @@ export const sendOtpAction = (data, callBack) => {
             if (result.data.code === 200) {
                 dispatch({
                     type: ACTION_TYPE.SEND_OTP_SUCCESS,
-                    payload: { user: data.user }
+                    payload: { user: result.data.data }
                 });
                 callBack && callBack();
             }
@@ -69,17 +74,17 @@ export const sendOtpAction = (data, callBack) => {
     }
 };
 
-export const verifyOtpAction = (otp, callBack) => {
+export const verifyOtpAction = (otp, id, callBack) => {
     return async function (dispatch) {
         try {
             dispatch({
                 type: ACTION_TYPE.VERIFY_OTP_REQUEST,
             });
-            const result = await axios.post(`${baseUrl}/api${verifyOtp}`, otp);
+            const result = await axios.post(`${baseUrl}/api${verifyOtp}`, { otp: otp.join(""), id: id });
             if (result.data.code === 200) {
                 dispatch({
                     type: ACTION_TYPE.VERIFY_OTP_SUCCESS,
-                    payload: { user: result.data.message }
+                    payload: { ...result.data.data }
                 });
                 callBack && callBack();
             }
@@ -98,13 +103,13 @@ export const getCurrentUser = (id, callBack) => {
             dispatch({
                 type: ACTION_TYPE.CREATE_ACCOUNT_REQUEST,
             });
-            const result = await axios.get(`${baseUrl}/api${getUser}?${id}`);
+            const result = await axios.get(`${baseUrl}/api${getUser}/${id}`);
             if (result.data.code === 200) {
                 dispatch({
                     type: ACTION_TYPE.CREATE_ACCOUNT_SUCCESS,
-                    payload: { user: result.data.message }
+                    payload: { ...result.data.data }
                 });
-                callBack && callBack();
+                callBack && callBack(result.data.data);
             }
         } catch (error) {
             dispatch({

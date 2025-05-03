@@ -1,20 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { bannerSliderItems, furnitures, } from "../../utils/constant";
-import itemList from '../../utils/home-top-menu.json'
-import { getCurrentUser } from "../../entities/auth-reducer";
-import { useDispatch, useSelector } from "react-redux";
+import { bannerSliderItems, furnitures, sellingSliderItems } from "../../utils/constant";
+import itemList from '../../utils/product.json'
 
 export default function HomePage() {
-  const dispatch = useDispatch()
-  const user = useSelector((state => state.auth.user))
-
-  useEffect(() => {
-    if (!user) {
-      dispatch()
-    }
-  }, [])
 
   const responsive = {
     superLargeDesktop: {
@@ -82,7 +72,7 @@ export default function HomePage() {
       </div>
       <div className="m-3 text-start bg-white p-2">
         <b className="pl-[10px] pb-[30px] text-[25px]">Best of Wears</b >
-        {/* <Carousel
+        <Carousel
           height={600}
           className="grid lg:grid-cols-10 xs:grid-cols-12 ml-1 mr-7 "
           swipeable={true}
@@ -90,7 +80,7 @@ export default function HomePage() {
           dynamicHeight={true}
         >
           {sellingSliderItems.map(({ title, image, price }) => (
-            <div className="lg:col-auto xs:col-span-6 sm:col-span-4 md:col-span-4   xs:ml-2 ">
+            <div className="lg:col-auto text-center  xs:col-span-6 sm:col-span-4 md:col-span-4   xs:ml-2 ">
               <img
                 style={{ height: "350px", width: "300px" }}
                 className=" p-2"
@@ -98,10 +88,10 @@ export default function HomePage() {
               />
               <b className="ml-2 text-center"
               >{title}</b>
-              <h5 className="text-center">From {price}</h5>
+              <h5 className="text-center">From $ {price}</h5>
             </div>
           ))}
-        </Carousel> */}
+        </Carousel>
       </div >
       <div className="bg-white text-start mx-3">
         <b className="pl-[10px] pb-[30px] text-[25px]">Best of Electronics</b>
@@ -121,12 +111,12 @@ export default function HomePage() {
               />
               <b className="ml-2 text-center"
               >{item.title}</b>
-              <h5 className="text-center">From {item.price}</h5>
+              <h5 className="text-center">From $ {item.price}</h5>
             </div>
           ))}
         </Carousel >
       </div >
-      <div className="bg-white text-start mx-3 mt-3">
+      <div className="bg-white text-start mx-3 my-3">
         <b className="pl-[10px] pb-[30px] text-[25px]">Best of Furnitures</b >
         <Carousel
           height={600}
@@ -144,7 +134,7 @@ export default function HomePage() {
               />
               <b className="ml-2 text-center"
               >{item.title}</b>
-              <h5 className="text-center">From {item.price}</h5>
+              <h5 className="text-center">From $ {item.price}</h5>
             </div>
           ))}
         </Carousel>

@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema({
     phone: {
         type: Number
     },
+    role: {
+        type: String
+    },
     otp: {
         type: Number
     },

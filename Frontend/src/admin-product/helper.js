@@ -9,6 +9,12 @@ var productValues = {
   item_photo: "",
 };
 
+const userValue = {
+  first_Name: "",
+  last_name: "",
+  profile_image: "",
+}
+
 var productSchema = yup.object().shape({
   item_name: yup
     .string()
@@ -35,4 +41,31 @@ const productObjArray = [
   { name: "item_photo", label: "", type: "file" },
 ];
 
-export { productValues, productSchema,productObjArray };
+const profileForm = [{
+  name: "name", placeHolder: "First Name", inputType: "text"
+},
+{
+  name: "lastName", placeHolder: "Last Name", inputType: "text"
+},
+{
+  name: "role", placeHolder: "Role", inputType: "text"
+},
+{ name: "gender", placeHolder: "Gender", inputType: "text" },
+{ name: "profileImage", placeHolder: "Profile Image", intputType: "file" }
+]
+
+const userSchema = yup.object().shape({
+  first_Name: yup
+    .string()
+    .required("Name is Required!")
+    .matches(/^([A-Za-z ])+$/, "Invalid Name")
+    .min(3, "Invalid Name"),
+  last__Name: yup
+    .string()
+    .required("Name is Required!")
+    .matches(/^([A-Za-z ])+$/, "Invalid Name")
+    .min(3, "Invalid Name"),
+  profile_imgae: yup.string().required("Profile image is Required!")
+});
+
+export { productValues, productSchema, productObjArray, profileForm, userValue, userSchema };

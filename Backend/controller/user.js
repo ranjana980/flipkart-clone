@@ -43,10 +43,11 @@ const sendOtp = async (req, res) => {
                     cart: [],
                     is_verified: false,
                     is_logged_in: false,
-                    notifications: []
+                    notifications: [],
+                    role: ""
                 });
                 const result = await user.save();
-                res.status(200).json({ code: 200, message: "We have sent 6 digit otp on your email!" })
+                res.status(200).json({ code: 200, message: "We have sent 6 digit otp on your email!", data: user })
             }
             else {
                 const user = {
@@ -61,11 +62,13 @@ const sendOtp = async (req, res) => {
                     cart: existingUser.cart,
                     is_verified: false,
                     is_logged_in: false,
-                    notifications: []
+                    notifications: [],
+                    _id: existingUser._id,
+                    role: existingUser.role,
                 }
                 Users.findByIdAndUpdate(existingUser._id, { $set: user })
                     .then(response => {
-                        res.status(200).json({ code: 200, message: "We have sent 6 digit otp on your email!" })
+                        res.status(200).json({ code: 200, message: "We have sent 6 digit otp on your email!", data: user })
                     })
             }
 
@@ -74,10 +77,9 @@ const sendOtp = async (req, res) => {
 }
 
 const verifyOtp = async (req, res) => {
-    const { otp } = req.body
-    const { id } = req.query
+    const { otp, id } = req.body
     const existingUser = await Users.findOne({ _id: id })
-    if (existingUser.otp === otp) {
+    if (existingUser.otp === parseInt(otp)) {
         try {
             const user = {
                 otp: otp,
@@ -90,12 +92,13 @@ const verifyOtp = async (req, res) => {
                 gender: existingUser.gender,
                 cart: existingUser.cart,
                 is_verified: true,
-                is_logged_in: false,
-                notifications: existingUser.notifications
+                is_logged_in: true,
+                notifications: existingUser.notifications,
+                _id: existingUser._id
             }
             Users.findByIdAndUpdate(id, { $set: user, })
                 .then(response => {
-                    res.status(200).json({ code: 200, message: "OTP has been Verified!" })
+                    res.status(200).json({ code: 200, message: "OTP has been Verified!", data: user })
                 })
         }
         catch (err) {
@@ -113,42 +116,29 @@ const verifyOtp = async (req, res) => {
         })
     }
 
-}
-
-const get_user = async (req, res) => {
-
-    const user = await Users.findOne({ _id: req.params.id })
-    if (user) {
-        res.json({ code: 200, message: user })
-    }
 
 }
 
-const sign_in_user = async (req, res) => {
-    const user = await Users.findOne({ email: req.email })
+
+const getUser = async (req, res) => {
+    const { id } = req.params
+    const existingUser = await Users.findOne({ _id: id })
     try {
-        const updateUserData = {
-            otp: user.otp,
-            email: user.email,
-            phone: user.phone,
-            wishlist: user.wishlist,
-            orders: user.orders,
-            first_name: user.first_name,
-            last_name: user.last_name,
-            gender: user.gender,
-            cart: user.cart,
-            is_verified: user.is_verified,
-            is_logged_in: true,
-            notifications: user.notifications
-        }
-        Users.findByIdAndUpdate(id, { $set: updateUserData, })
-        res.json({ code: 200, message: "Login Successfully" })
+        res.json({
+            code: 200,
+            data: existingUser
+        })
     }
-    catch (error) {
-        res.json({ code: 400, message: "Login Failed" })
+    catch (err) {
+        res.json({
+            code: 400,
+            msg: 'somthing went wrong'
+        })
     }
 }
 
 
-module.exports = { sendOtp, verifyOtp, get_user, sign_in_user }
+
+
+module.exports = { sendOtp, verifyOtp, getUser }
 

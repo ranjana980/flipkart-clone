@@ -1,25 +1,18 @@
 .navbar {
-    background-color: white;
 
     &-search {
         display: flex;
-        background-color: #f0f5ff;
         align-items: center;
-        border-radius: 10px;
         padding: 0 20px;
         font-weight: 600;
-        color: black;
 
         &-icon {
-            color: black;
             margin-right: 10px;
         }
 
         input {
             min-width: 564px;
-            border-radius: 10px;
             border: 0;
-            background-color: #f0f5ff;
             outline: 0 none;
             font-size: 14px;
             height: 36px;
@@ -47,7 +40,6 @@
 
     &-button {
         background-color: white;
-        color: black;
         font-weight: 500;
         background-color: #fff;
         cursor: pointer;
@@ -55,13 +47,5 @@
         padding: 0px 20px;
         border: none;
         display: flex;
-    }
-
-    &-cart {
-        color: black;
-    }
-
-    &-notification {
-        color: black
     }
 }

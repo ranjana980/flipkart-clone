@@ -10,7 +10,7 @@ export default function ProductTopMenu() {
     const [openTopMenu5, setopenTopMenu5] = useState(false)
 
     return (
-        <div className='top-header-product my-3 mx-3 mt-2'>
+        <div className='top-header-product mb-3'>
             <div className='top-header-product-box'>
                 <span className='top-header-product-lable'>
                     <span>Electric</span>

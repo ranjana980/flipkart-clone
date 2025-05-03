@@ -1,6 +1,14 @@
 import sliderImg1 from "../assests/images/flight.jpg";
 import sliderImg2 from "../assests/images/furtniure.jpg";
 import sliderImg3 from "../assests/images/phones.jpg";
+import Wedding from "../assests/images/wedding.jpg";
+import Clothing from "../assests/images/dress.jpg";
+import FootWear from "../assests/images/footwear.jpg";
+import BebyWear from "../assests/images/bebywear.jpg";
+import Purse from "../assests/images/purse.jpg";
+import MakeUp from "../assests/images/makeup.jpg";
+import Jewellery from "../assests/images/jewelley.jpg";
+
 
 export const bannerSliderItems = [
   { image: sliderImg1 },
@@ -169,3 +177,26 @@ export const newItems = [
     }
   }
 ]
+
+export const sellingSliderItems = [
+  { image: Wedding, title: "Wedding", subCategories: [], "price": 56.99, },
+  { image: Clothing, title: "women's wears", "price": 56.99, },
+  {
+    "id": 2,
+    "title": "Men's wears",
+    "price": 22.3,
+    "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+    "category": "men's clothing",
+    "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+    "rating": {
+      "rate": 4.1,
+      "count": 259
+    }
+  },
+  { image: Jewellery, title: "Jwellery", "price": 56.99, },
+  { image: FootWear, title: "Foot Wears", "price": 56.99, },
+  { image: BebyWear, title: "Baby Wears", "price": 56.99, },
+  { image: Purse, title: "Purse", "price": 56.99, },
+  { image: MakeUp, title: "Makeup", "price": 56.99 }
+];
+
