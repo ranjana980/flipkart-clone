@@ -31,7 +31,7 @@ db.on('error', (err) => {
 
 
 app.use(cors({
-    origin: "https://e-commerce-kohl-seven-23.vercel.app/",
+    origin: "https://e-commerce-kohl-seven-23.vercel.app",
     // origin: "http://localhost:3000",
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }))
