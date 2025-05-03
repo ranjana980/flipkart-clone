@@ -1,2 +1,2 @@
-// export const baseUrl = "https://e-commerce-website-backend-lake.vercel.app/api"
-export const baseUrl = "http://localhost:4000"
+export const baseUrl = "https://e-commerce-backend-chi-dusky.vercel.app"
+// export const baseUrl = "http://localhost:4000"
