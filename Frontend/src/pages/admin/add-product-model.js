@@ -18,7 +18,6 @@ export const ProductForm = ({
     }
   };
 
-
   return (
     <Formik
       initialValues={initialValues}
@@ -38,11 +37,10 @@ export const ProductForm = ({
                   placeholder={label}
                   name={name}
                   type={type}
-                  className={` ${
-                    props?.touched?.[name] && props?.errors?.[name]
-                      ? `is-invalid`
-                      : `form-control`
-                  }`}
+                  className={` ${props?.touched?.[name] && props?.errors?.[name]
+                    ? `is-invalid`
+                    : `form-control`
+                    }`}
                 />
                 <ErrorMessage name={name}>
                   {(msg) => <div className="errText">{msg}</div>}

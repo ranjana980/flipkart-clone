@@ -1,0 +1,25 @@
+.common-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.common-table th,
+.common-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.common-table th {
+    background-color: #f4f4f4;
+}
+
+.scroll-style::-webkit-scrollbar-thumb {
+    background-color: #4BAFA9;
+    border-radius: 20px;
+}
+
+.scroll-style::-webkit-scrollbar {
+    width: 4px;
+    height: 5px;
+}

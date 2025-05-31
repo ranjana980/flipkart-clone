@@ -10,7 +10,7 @@ var productValues = {
 };
 
 const userValue = {
-  first_Name: "",
+  first_name: "",
   last_name: "",
   profile_image: "",
 }
@@ -41,31 +41,38 @@ const productObjArray = [
   { name: "item_photo", label: "", type: "file" },
 ];
 
-const profileForm = [{
-  name: "name", placeHolder: "First Name", inputType: "text"
+const userObjArray = [{
+  name: "first_name", placeHolder: "First Name", inputType: "text"
 },
 {
-  name: "lastName", placeHolder: "Last Name", inputType: "text"
+  name: "last_name", placeHolder: "Last Name", inputType: "text"
 },
+{ name: "gender", placeHolder: "Gender", inputType: "select", options: [{ Female: 'female' }, { Male: 'male' }, { Other: "other" }] },
 {
   name: "role", placeHolder: "Role", inputType: "text"
 },
-{ name: "gender", placeHolder: "Gender", inputType: "text" },
-{ name: "profileImage", placeHolder: "Profile Image", intputType: "file" }
+{
+  name: "email", placeHolder: "Email", inputType: "text"
+},
+{
+  name: "phone", placeHolder: "phone", inputType: "text"
+},
+{ name: "profile_image", placeHolder: "Profile Image", intputType: "file" },
+
 ]
 
 const userSchema = yup.object().shape({
-  first_Name: yup
+  first_name: yup
     .string()
     .required("Name is Required!")
     .matches(/^([A-Za-z ])+$/, "Invalid Name")
     .min(3, "Invalid Name"),
-  last__Name: yup
+  last_name: yup
     .string()
-    .required("Name is Required!")
+    .required("Last Name is Required!")
     .matches(/^([A-Za-z ])+$/, "Invalid Name")
     .min(3, "Invalid Name"),
-  profile_imgae: yup.string().required("Profile image is Required!")
+  profile_image: yup.string().required("Profile image is Required!")
 });
 
-export { productValues, productSchema, productObjArray, profileForm, userValue, userSchema };
+export { productValues, productSchema, productObjArray, userObjArray, userValue, userSchema };

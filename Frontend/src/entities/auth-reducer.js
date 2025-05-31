@@ -1,12 +1,12 @@
 import axios from "axios";
 import { baseUrl } from "../api/baseUrl";
-import { sendOtp, getUser, verifyOtp } from "../api/routes";
+import { sendOtp, verifyOtp, adminAuth, getUser } from "../api/routes";
 
 // Initial state
 const initialValues = {
     fetching: false,
     error: null,
-    user: null
+    user: null,
 };
 
 // Action types
@@ -17,13 +17,17 @@ const ACTION_TYPE = {
     VERIFY_OTP_REQUEST: "VERIFY_OTP_REQUEST",
     VERIFY_OTP_SUCCESS: "VERIFY_OTP_SUCCESS",
     VERIFY_OTP_FAILURE: "VERIFY_OTP_FAILURE",
-    CREATE_ACCOUNT_REQUEST: "CREATE_ACCOUNT_REQUEST",
-    CREATE_ACCOUNT_SUCCESS: "CREATE_ACCOUNT_SUCCESS",
-    CREATE_ACCOUNT_FAILURE: "CREATE_ACCOUNT_FAILURE"
+    GET_CURRENT_USER_REQUEST: "GET_CURRENT_USER_REQUEST",
+    GET_CURRENT_USER_SUCCESS: "GET_CURRENT_USER_SUCCESS",
+    GET_CURRENT_USER_FAILURE: "GET_CURRENT_USER_FAILURE",
+    ADMIN_AUTH_REQUEST: "ADMIN_AUTH_REQUEST",
+    ADMIN_AUTH_SUCCESS: "ADMIN_AUTH_SUCCESS",
+    ADMIN_AUTH_FAILURE: "ADMIN_AUTH_FAILURE",
 };
 
 // Reducer function
 export default function AuthReducer(state = initialValues, action) {
+
     switch (action.type) {
         case ACTION_TYPE.SEND_OTP_REQUEST:
             return { ...state, fetching: true };
@@ -37,12 +41,18 @@ export default function AuthReducer(state = initialValues, action) {
             return { ...state, fetching: false, user: action.payload };
         case ACTION_TYPE.VERIFY_OTP_FAILURE:
             return { ...state, fetching: false, error: action.payload, user: null };
-        case ACTION_TYPE.CREATE_ACCOUNT_REQUEST:
+        case ACTION_TYPE.GET_CURRENT_USER_REQUEST:
+            return { ...state, fetching: true, user: null };
+        case ACTION_TYPE.GET_CURRENT_USER_SUCCESS:
+            return { ...state, fetching: false, user: action.payload };
+        case ACTION_TYPE.GET_CURRENT_USER_FAILURE:
+            return { ...state, fetching: false, error: action.payload, user: null };
+        case ACTION_TYPE.ADMIN_AUTH_REQUEST:
             return { ...state, fetching: true };
-        case ACTION_TYPE.CREATE_ACCOUNT_SUCCESS:
-            return { ...state, fetched: false, user: action.payload };
-        case ACTION_TYPE.CREATE_ACCOUNT_FAILURE:
-            return { ...state, fetching: false, error: action.payload };
+        case ACTION_TYPE.ADMIN_AUTH_SUCCESS:
+            return { ...state, fetching: false, user: action.payload };
+        case ACTION_TYPE.ADMIN_AUTH_FAILURE:
+            return { ...state, fetching: false, error: action.payload, user: null };
         default:
             return state;
     }
@@ -97,25 +107,51 @@ export const verifyOtpAction = (otp, id, callBack) => {
     }
 }
 
-export const getCurrentUser = (id, callBack) => {
+
+export const adminAuthAction = (data, callback) => {
     return async function (dispatch) {
         try {
             dispatch({
-                type: ACTION_TYPE.CREATE_ACCOUNT_REQUEST,
+                type: ACTION_TYPE.ADMIN_AUTH_REQUEST
+            });
+
+            const result = await axios.post(`${baseUrl}/api${adminAuth}`, { data })
+            if (result.data.code === 200) {
+                dispatch({
+                    type: ACTION_TYPE.ADMIN_AUTH_SUCCESS,
+                    payload: { ...result.data.data }
+                });
+                callback && callback(result.data.data);
+            }
+        } catch (error) {
+            dispatch({
+                type: ACTION_TYPE.ADMIN_AUTH_FAILURE,
+                payload: error.message
+            });
+        }
+    }
+}
+
+export const getCurrentUserAction = (id, callBack) => {
+    return async function (dispatch) {
+        try {
+            dispatch({
+                type: ACTION_TYPE.GET_CURRENT_USER_REQUEST,
             });
             const result = await axios.get(`${baseUrl}/api${getUser}/${id}`);
             if (result.data.code === 200) {
                 dispatch({
-                    type: ACTION_TYPE.CREATE_ACCOUNT_SUCCESS,
+                    type: ACTION_TYPE.GET_CURRENT_USER_SUCCESS,
                     payload: { ...result.data.data }
                 });
                 callBack && callBack(result.data.data);
             }
         } catch (error) {
             dispatch({
-                type: ACTION_TYPE.CREATE_ACCOUNT_FAILURE,
+                type: ACTION_TYPE.GET_CURRENT_USER_FAILURE,
                 payload: error.message
             });
         }
     }
 };
+

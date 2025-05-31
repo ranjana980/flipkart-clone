@@ -6,37 +6,43 @@ import thunk from "redux-thunk";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { ProductList } from './admin-product/product-list';
 import Navbar from './components/navbar';
 import { Auth } from './auth/auth';
 import Footer from './components/footer';
-import Home from './components/home-page';
-import HeaderMenu from './section-component/HeaderMenu';
-import FlipCartPlusZone from './pages/flipcart-plus-zone';
-import GiftCardsStore from './pages/gift-cards-store';
-import CartItem from './pages/cart';
-import BecomeASeller from './pages/become-a-seller';
-import UserProfile from './pages/user-profile';
+import FlipCartPlusZone from './pages/user/flipcart-plus-zone';
+import GiftCardsStore from './pages/user/gift-cards-store';
+import CartItem from './pages/user/cart';
+import BecomeASeller from './pages/user/become-a-seller';
+import UserProfile from './pages/user/user-profile';
+import HomePage from './components/home-page';
+import ProductCotegory from './pages/user/category/subcategory';
+import AdminProductList from './pages/admin/product-list';
+import AdminDashboard from './pages/admin/dashboard';
+import UserList from './pages/admin/userlist';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 function App() {
-
 
   return (
     <div className="App">
       <Provider store={store}>
         <BrowserRouter>
           <Navbar />
-          <HeaderMenu />
           <Routes>
-            <Route index element={<Home />} />
+            <Route index element={<HomePage />} />
             <Route path="/account" element={<Auth />} />
-            <Route path='/ListForm' element={<ProductList />} />
+            {/* <Route path='/product-list' element={<ProductList />} /> */}
+            <Route path='/:category/:subcategory' element={<ProductCotegory />} />
             <Route path="/plus" element={<FlipCartPlusZone />} />
             <Route path="/gift-cards-store" element={<GiftCardsStore />} />
             <Route path="/cart" element={<CartItem />} />
             <Route path="/userProfile" element={<UserProfile />} />
             <Route path="/become-a-seller" element={<BecomeASeller />} />
+
+            {/* admin section routes */}
+            <Route path='/admin/dashboard' element={<AdminDashboard />} />
+            <Route path='/admin/user-list' element={<UserList />} />
+            <Route path='/admin/product-list' element={<AdminProductList />} />
           </Routes>
           <Footer />
         </BrowserRouter>

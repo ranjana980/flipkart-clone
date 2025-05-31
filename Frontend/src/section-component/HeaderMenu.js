@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom"
 import TopHeader from "./home-top-menu"
 import ProductTopMenu from "./product-top-menu"
-import SellerTopMenu from "../pages/become-a-seller/seller-top-menu"
+import SellerTopMenu from "../pages/user/become-a-seller/seller-top-menu"
 
 export default function HeaderMenu() {
     const { pathname } = useLocation()
