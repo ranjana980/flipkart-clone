@@ -1,7 +1,8 @@
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const Users = require('../models/user');
-const User = require('../models/user');
+const Admin = require('../models/admin');
+
 require('dotenv').config();
 
 const sendOtp = async (req, res) => {
@@ -77,6 +78,44 @@ const sendOtp = async (req, res) => {
     });
 }
 
+const logOutUser = async (req, res) => {
+    const { id } = req.params
+    const user = await Users.find(({ _id: id }))
+    if (user) {
+        try {
+            res.json({
+                code: 200,
+                msg: 'Logout User SuccessFully',
+                data: { ...user, is_logged_in: false }
+            })
+        }
+        catch (err) {
+            res.json({
+                code: 400,
+                msg: 'somthing went wrong'
+            })
+        }
+    }
+    else {
+        const admin = await Admin.find(({ _id: id }))
+        try {
+            res.json({
+                code: 200,
+                msg: 'Logout User SuccessFully',
+                data: { ...admin, is_logged_in: false }
+            })
+        }
+        catch (err) {
+            res.json({
+                code: 400,
+                msg: 'somthing went wrong'
+            })
+        }
+    }
+
+
+}
+
 const verifyOtp = async (req, res) => {
     const { otp, id } = req.body
     const existingUser = await Users.findOne({ _id: id })
@@ -103,7 +142,6 @@ const verifyOtp = async (req, res) => {
                 })
         }
         catch (err) {
-            console.log(err, 'err')
             res.json({
                 code: 400,
                 msg: 'somthing went wrong'
@@ -113,7 +151,7 @@ const verifyOtp = async (req, res) => {
     else {
         res.json({
             code: 400,
-            msg: 'Incorrect Otp'
+            msg: 'Incorrect OTP'
         })
     }
 }
@@ -122,10 +160,9 @@ const verifyOtp = async (req, res) => {
 const getUserById = async (req, res) => {
     const { id } = req.params
     const existingUser = await Users.findOne({ _id: id })
-    try {
-        let data = existingUser
-        if (existingUser.role === 'admin') {
-            data = {
+    if (existingUser) {
+        try {
+            const data = {
                 email: existingUser.email,
                 phone: existingUser.phone,
                 first_name: existingUser.first_name,
@@ -137,20 +174,49 @@ const getUserById = async (req, res) => {
                 notifications: existingUser.notifications,
                 _id: existingUser._id
             }
-        }
-        res.json({
-            code: 200,
-            data
-        })
-    }
-    catch (err) {
-        res.json({
-            code: 400,
-            msg: 'somthing went wrong'
-        })
-    }
-}
 
+            res.json({
+                code: 200,
+                data
+            })
+        }
+        catch (err) {
+            res.json({
+                code: 400,
+                msg: 'somthing went wrong'
+            })
+        }
+    }
+    else {
+        try {
+            const adminUser = await Admin.findOne({ _id: id })
+            const data = {
+                email: adminUser.email,
+                phone: adminUser.phone,
+                first_name: adminUser.first_name,
+                last_name: adminUser.last_name,
+                gender: adminUser.gender,
+                is_logged_in: true,
+                role: adminUser.role,
+                password: adminUser.password,
+                notifications: adminUser.notifications,
+                _id: adminUser._id
+            }
+
+            res.json({
+                code: 200,
+                data
+            })
+        }
+        catch (err) {
+            res.json({
+                code: 400,
+                msg: 'somthing went wrong'
+            })
+        }
+    }
+
+}
 
 const getUser = async (req, res) => {
     const user = await Users.find()
@@ -189,14 +255,17 @@ const addUser = async (req, res) => {
     }
 }
 
-const updateUserById = async (req, res) => {
-    const { id } = req.params
-    const users = await Users.findOneAndDelete({ _id: id })
+const updateUser = async (req, res) => {
+    const { data } = req.body
+    const logged_id_user_id = req.body?.logged_id_user_id
+    const users = await Users.findOneAndUpdate({ _id: data?._id }, { $set: data })
+    const userDetails = await Users.findOne({ _id: data?._id })
     const updatedList = await Users.find()
+    const adminUsers = updatedList?.filter((item) => item?._id !== data?._id)
     try {
         res.json({
             code: 200,
-            data: updatedList
+            data: logged_id_user_id === data?._id ? userDetails : adminUsers
         })
     }
     catch (err) {
@@ -227,8 +296,8 @@ const deleteUserById = async (req, res) => {
 
 const adminAuth = async (req, res) => {
     const { email, password } = req.body.data
-    const existingUser = await Users.findOne({ email: email })
-    if (existingUser.password === password) {
+    const existingUser = await Admin.findOne({ email: email })
+    if (existingUser?.password === password) {
         try {
             const user = {
                 email: existingUser.email,
@@ -242,7 +311,7 @@ const adminAuth = async (req, res) => {
                 notifications: existingUser.notifications,
                 _id: existingUser._id
             }
-            Users.findByIdAndUpdate(existingUser._id, { $set: user, })
+            Admin.findByIdAndUpdate(existingUser._id, { $set: user, })
                 .then(response => {
                     res.status(200).json({ code: 200, message: "Login SuccessFully!", data: user })
                 })
@@ -254,23 +323,24 @@ const adminAuth = async (req, res) => {
         }
     }
     else {
-        const user = new Users({
+        const user = new Admin({
             email,
             phone: "",
             first_name: "",
             last_name: "",
             gender: "",
             password,
+            chats: [],
             is_verified: false,
             is_logged_in: false,
             notifications: [],
             role: ""
         });
-        const result = await user.save();
+        const result = await Admin.save();
         res.status(200).json({ code: 200, message: "Signup SuccessFully!", data: result })
     }
 }
 
 
-module.exports = { sendOtp, verifyOtp, getUserById, getUser, adminAuth, deleteUserById, updateUserById, addUser }
+module.exports = { sendOtp, verifyOtp, getUserById, getUser, adminAuth, deleteUserById, updateUser, addUser, logOutUser }
 

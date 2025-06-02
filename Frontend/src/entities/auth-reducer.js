@@ -1,6 +1,6 @@
 import axios from "axios";
 import { baseUrl } from "../api/baseUrl";
-import { sendOtp, verifyOtp, adminAuth, getUser } from "../api/routes";
+import { sendOtp, verifyOtp, adminAuth, getUser, logOutUser, addToCart, removeToCart } from "../api/routes";
 
 // Initial state
 const initialValues = {
@@ -23,6 +23,17 @@ const ACTION_TYPE = {
     ADMIN_AUTH_REQUEST: "ADMIN_AUTH_REQUEST",
     ADMIN_AUTH_SUCCESS: "ADMIN_AUTH_SUCCESS",
     ADMIN_AUTH_FAILURE: "ADMIN_AUTH_FAILURE",
+    LOGOUT_USER_REQUEST: "LOGOUT_USER_REQUEST",
+    LOGOUT_USER_SUCCESS: "LOGOUT_USER_SUCCESS",
+    LOGOUT_USER_FAILURE: "LOGOUT_USER_FAILURE",
+    ADD_TO_CART_REQUEST: "ADD_TO_CART_REQUEST",
+    ADD_TO_CART_SUCCESS: " ADD_TO_CART_SUCCESS",
+    ADD_TO_CART_FAILURE: "ADD_TO_CART_FAILURE",
+    REMOVE_TO_CART_REQUEST: "REMOVE_TO_CART_REQUEST",
+    REMOVE_TO_CART_SUCCESS: " REMOVE_TO_CART_SUCCESS",
+    REMOVE_TO_CART_SUCCESS: "REMOVE_TO_CART_SUCCESS",
+
+
 };
 
 // Reducer function
@@ -52,6 +63,24 @@ export default function AuthReducer(state = initialValues, action) {
         case ACTION_TYPE.ADMIN_AUTH_SUCCESS:
             return { ...state, fetching: false, user: action.payload };
         case ACTION_TYPE.ADMIN_AUTH_FAILURE:
+            return { ...state, fetching: false, error: action.payload, user: null };
+        case ACTION_TYPE.LOGOUT_USER_REQUEST:
+            return { ...state, fetching: true };
+        case ACTION_TYPE.LOGOUT_USER_SUCCESS:
+            return { ...state, fetched: false, user: action.payload };
+        case ACTION_TYPE.LOGOUT_USER_FAILURE:
+            return { ...state, fetching: false, error: action.payload };
+        case ACTION_TYPE.ADD_TO_CART_REQUEST:
+            return { ...state, fetching: true };
+        case ACTION_TYPE.ADD_TO_CART_SUCCESS:
+            return { ...state, fetching: false, user: action.payload };
+        case ACTION_TYPE.ADD_TO_CART_FAILURE:
+            return { ...state, fetching: false, error: action.payload, user: null };
+        case ACTION_TYPE.REMOVE_TO_CART_REQUEST:
+            return { ...state, fetching: true };
+        case ACTION_TYPE.REMOVE_TO_CART_SUCCESS:
+            return { ...state, fetching: false, user: action.payload };
+        case ACTION_TYPE.REMOVE_TO_CART_FAILURE:
             return { ...state, fetching: false, error: action.payload, user: null };
         default:
             return state;
@@ -154,4 +183,75 @@ export const getCurrentUserAction = (id, callBack) => {
         }
     }
 };
+
+export const logOutUserAction = (id, callBack) => {
+    return async function (dispatch) {
+        try {
+            dispatch({
+                type: ACTION_TYPE.LOGOUT_USER_REQUEST,
+            });
+            const result = await axios.get(`${baseUrl}/api${logOutUser}/${id}`);
+            if (result.data.code === 200) {
+                dispatch({
+                    type: ACTION_TYPE.LOGOUT_USER_SUCCESS,
+                    payload: { ...result.data.data }
+                });
+                callBack && callBack()
+            }
+        } catch (error) {
+            dispatch({
+                type: ACTION_TYPE.LOGOUT_USER_FAILURE,
+                payload: error.message
+            });
+        }
+    }
+}
+
+
+export const addToCartAction = (data) => {
+    return async function (dispatch) {
+        try {
+            dispatch({
+                type: ACTION_TYPE.ADD_TO_CART_REQUEST
+            });
+            const result = await axios.post(`${baseUrl}/api${addToCart}`, { data })
+            if (result.data.code === 200) {
+                dispatch({
+                    type: ACTION_TYPE.ADD_TO_CART_SUCCESS,
+                    payload: { ...result.data.data }
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: ACTION_TYPE.ADD_TO_CART_FAILURE,
+                payload: error.message
+            });
+        }
+    }
+}
+
+export const removeToCartAction = (data) => {
+    return async function (dispatch) {
+        try {
+            dispatch({
+                type: ACTION_TYPE.REMOVE_TO_CART_REQUEST
+            });
+            const result = await axios.post(`${baseUrl}/api${removeToCart}`, { data })
+            if (result.data.code === 200) {
+                dispatch({
+                    type: ACTION_TYPE.REMOVE_TO_CART_SUCCESS,
+                    payload: { ...result.data.data }
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: ACTION_TYPE.REMOVE_TO_CART_FAILURE,
+                payload: error.message
+            });
+        }
+    }
+}
+
+
+
 

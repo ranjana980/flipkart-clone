@@ -1,9 +1,15 @@
 .navbar {
+    z-index: 10;
+
     &-search {
         display: flex;
         align-items: center;
+        gap: 10px;
         padding: 0 20px;
         font-weight: 600;
+        max-width: 564px;
+        width: 100%;
+        margin-right: 53px;
 
         &-icon {
             margin-right: 10px;

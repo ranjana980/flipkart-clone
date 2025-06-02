@@ -24,8 +24,8 @@ export const navBarItems = [
     icon: "Group",
     arrow: true,
     subnavMenu: [
-      { label: "User List", route: "/admin/user-list" },
-      { label: "Add User", route: "/admin/add-user" },
+      { label: "User List", route: "/admin/user-list", },
+      { label: "Add User", route: "/admin/add-user", },
     ],
     border: false,
   },
@@ -45,7 +45,7 @@ export const navBarItems = [
     arrow: true,
     subnavMenu: [
       { label: "Payment option", route: "/payment" },
-      { label: "Logout", route: "/" },
+      { label: "Logout", route: "/logout" },
     ],
     border: false,
   },

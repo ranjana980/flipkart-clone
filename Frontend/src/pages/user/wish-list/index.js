@@ -1,10 +1,13 @@
-import { useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
+import { removeToCartAction } from "../../../entities/auth-reducer"
 
 export default function WishList() {
     const navigate = useNavigate()
     const { user } = useSelector((state => state.auth))
     const is_not_have_Items = user?.is_logged_in && user?.wishlist?.length === 0
-    const is_have_Items = user?.is_logged_in && user?.wishlist?.length > 0
+    const is_have_Items = user?.is_logged_in && user?.wishlist?.length > 1
+    const dispatch = useDispatch()
 
     const handleWishlist = () => {
         if (user?.is_logged_in) {
@@ -15,6 +18,12 @@ export default function WishList() {
         }
     }
 
+    const handleRemoveToWishList = (product) => {
+        const data = user?.wishlist?.filter((item) => item?._id !== product._id)
+        user['wishlist'] = data
+        dispatch(removeToCartAction(user))
+    }
+
     return (<div className="border-b border-[lightgrey] ">
         {is_not_have_Items ?
             <div className="bg-white  p-4 mb-5">
@@ -22,11 +31,11 @@ export default function WishList() {
                 <h5>Empty Wishlist?</h5>
                 <div>
                     <p>{!user?.is_logged_in ? 'Login for the see items  you added previously' : "you have no items in your wishlist. start adding"}</p>
-                    <button onClick={handleWishlist} className="bg-[#fb641b] text-white p-2 w-[12%]">{is_not_have_Items ? "Go to Product Details" : is_have_Items ? 'Add more items' : "Login"}</button></div>
+                    <button onClick={handleWishlist} className="bg-[#fb641b] text-white p-2 w-[12%]">{is_not_have_Items ? "Go to Products" : is_have_Items ? 'Add more items' : "Login"}</button></div>
             </div> :
             <div className="flex flex-wrap justify-center  bg-white gap-[2px]  m-3">
                 {user?.wishlist?.map((product) => (
-                    <Link className="hover:shadow-2xl bg-white relative  cursor-pointer p-2 pb-4 min-h-[500px] w-[290px]" >
+                    <Link to="/product-details" className="hover:shadow-2xl bg-white relative  cursor-pointer p-2 pb-4 min-h-[500px] w-[290px]" >
                         <img
                             style={{ height: "300px", width: "300px" }}
                             src={product.image}
@@ -35,9 +44,9 @@ export default function WishList() {
                         >{product.title}</b>
                         <h5 className="text-center">From $ {product.price}</h5>
                         <div className="flex justify-center">
-                            <div className="flex flex-col justify-center gap-4  absolute bottom-[15px] text-white">
-                                <Link className="bg-[orange] p-2 rounded  " to="/product-details">Go to the Product Details</Link>
-                                <Link className="bg-[orange] p-2 rounded  " to="/product-details">Remove from wishlist</Link>
+                            <div className="flex flex-col justify-center gap-3  absolute bottom-[15px] text-white">
+                                <Link className="bg-[orange] hover:!text-[white] text-white p-2 rounded " to="/">Go to the Product</Link>
+                                <button className="bg-[orange] p-2 rounded  " onClick={() => handleRemoveToWishList(product)}>Remove from wishlist</button>
                             </div>
                         </div>
                     </Link>

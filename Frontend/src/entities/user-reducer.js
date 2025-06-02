@@ -102,13 +102,14 @@ export const addUserAction = () => {
         }
     }
 };
-export const updateUserAction = (id) => {
+
+export const updateUserAction = (id, data) => {
     return async function (dispatch) {
         try {
             dispatch({
                 type: ACTION_TYPE.UPDATE_USER_REQUEST,
             });
-            const result = await axios.get(`${baseUrl}/api${updateUser}/${id}`);
+            const result = await axios.post(`${baseUrl}/api${updateUser}`, { logged_id_user_id: id, data });
             if (result.data.code === 200) {
                 dispatch({
                     type: ACTION_TYPE.UPDATE_USER_SUCCESS,
@@ -130,7 +131,7 @@ export const deleteUserAction = (id) => {
             dispatch({
                 type: ACTION_TYPE.DELETE_USER_REQUEST,
             });
-            const result = await axios.get(`${baseUrl}/api${deleteUser}/${id}`);
+            const result = await axios.delete(`${baseUrl}/api${deleteUser}/${id}`);
             if (result.data.code === 200) {
                 dispatch({
                     type: ACTION_TYPE.DELETE_USER_SUCCESS,
@@ -145,7 +146,4 @@ export const deleteUserAction = (id) => {
         }
     }
 };
-
-
-
 

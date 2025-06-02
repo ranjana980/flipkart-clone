@@ -57,7 +57,6 @@ const userObjArray = [{
 {
   name: "phone", placeHolder: "phone", inputType: "text"
 },
-{ name: "profile_image", placeHolder: "Profile Image", intputType: "file" },
 
 ]
 
@@ -72,7 +71,8 @@ const userSchema = yup.object().shape({
     .required("Last Name is Required!")
     .matches(/^([A-Za-z ])+$/, "Invalid Name")
     .min(3, "Invalid Name"),
-  profile_image: yup.string().required("Profile image is Required!")
+  gender: yup.string().required("Phone Number is Required!"),
+  phone: yup.number().required("Gender is Required!")
 });
 
 export { productValues, productSchema, productObjArray, userObjArray, userValue, userSchema };

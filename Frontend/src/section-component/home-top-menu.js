@@ -12,7 +12,6 @@ import './style.scss'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 
 export default function TopHeader() {
-
     const [openTopMenu2, setopenTopMenu2] = useState(false)
     const [openTopMenu3, setopenTopMenu3] = useState(false)
     const [openTopMenu4, setopenTopMenu4] = useState(false)
@@ -37,7 +36,7 @@ export default function TopHeader() {
                 <img src={fashion} />
                 <span className='top-header-product-lable'>
                     <span>Fashion</span>
-                    {!openTopMenu ? <ExpandMore /> : <ExpandLess />}
+                    {!openTopMenu ? <ExpandMore className='!hidden md:!block' /> : <ExpandLess className='!hidden md:!block' />}
                 </span>
                 {openTopMenu && <div className="z-[99]  rounded-[10px] text-nowrap text-black shadow-lg absolute top-15 p-1 bg-white">
                     <div className='flex justify-between p-2 gap-5  hover:bg-gray-50'><div >Men's Top Wear</div></div>
@@ -57,7 +56,7 @@ export default function TopHeader() {
                 <img src={electronic} />
                 <span className='top-header-product-lable'>
                     <span>Electronics</span>
-                    {!openTopMenu2 ? <ExpandMore /> : <ExpandLess />}
+                    {!openTopMenu2 ? <ExpandMore className='!hidden md:!block' /> : <ExpandLess className='!hidden md:!block' />}
                 </span>
                 {openTopMenu2 && <div className="z-[99] text-nowrap  rounded-[10px] text-black shadow-lg absolute top-15 p-1 bg-white">
                     <div className='flex justify-between p-2 gap-5  hover:bg-gray-50'><div >Audio</div></div>
@@ -80,7 +79,7 @@ export default function TopHeader() {
                 <img src={furnitures} />
                 <span className='top-header-product-lable'>
                     <span>Home & Furniture</span>
-                    {!openTopMenu3 ? <ExpandMore /> : <ExpandLess />}
+                    {!openTopMenu3 ? <ExpandMore className='!hidden md:!block' /> : <ExpandLess className='!hidden md:!block' />}
                 </span>
                 {openTopMenu3 && <div className="z-[99] text-nowrap  rounded-[10px] text-black shadow-lg absolute top-15 p-1 bg-white">
                     <div className='flex justify-between p-2 gap-5  hover:bg-gray-50'><div >Home Furnishings</div></div>
@@ -114,7 +113,7 @@ export default function TopHeader() {
                 <img src={bebyCare} />
                 <span className='top-header-product-lable'>
                     <span>Beauty, Toys & More</span>
-                    {!openTopMenu4 ? <ExpandMore /> : <ExpandLess />}
+                    {!openTopMenu4 ? <ExpandMore className='!hidden md:!block' /> : <ExpandLess className='!hidden md:!block' />}
                 </span>
                 {openTopMenu4 && <div className="z-[99] text-nowrap text-black  rounded-[10px] shadow-lg absolute top-15 p-1 bg-white">
                     <div className='flex justify-between p-2 gap-5  hover:bg-gray-50'><div >Beauty & Personal Care</div></div>
@@ -135,7 +134,7 @@ export default function TopHeader() {
                 <img src={twoWheelers} />
                 <span className='top-header-product-lable'>
                     <span>Two Wheelers</span>
-                    {!openTopMenu5 ? <ExpandMore /> : <ExpandLess />}
+                    {!openTopMenu5 ? <ExpandMore className='!hidden md:!block' /> : <ExpandLess className='!hidden md:!block' />}
                 </span>
                 {openTopMenu5 && <div className="z-[99] text-nowrap rounded-[10px] text-black shadow-lg absolute top-15 p-1 bg-white">
                     <div className='flex justify-between p-2 gap-5  hover:bg-gray-50'><div >Petrol vehical</div></div>

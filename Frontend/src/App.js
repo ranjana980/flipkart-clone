@@ -14,11 +14,12 @@ import GiftCardsStore from './pages/user/gift-cards-store';
 import CartItem from './pages/user/cart';
 import BecomeASeller from './pages/user/become-a-seller';
 import UserProfile from './pages/user/user-profile';
-import HomePage from './components/home-page';
+import HomePage from './pages/user/home-page';
 import ProductCotegory from './pages/user/category/subcategory';
 import AdminProductList from './pages/admin/product-list';
 import AdminDashboard from './pages/admin/dashboard';
 import UserList from './pages/admin/userlist';
+import WishList from './pages/user/wish-list';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path="/plus" element={<FlipCartPlusZone />} />
             <Route path="/gift-cards-store" element={<GiftCardsStore />} />
             <Route path="/cart" element={<CartItem />} />
+            <Route path="/wishlist" element={<WishList />} />
             <Route path="/userProfile" element={<UserProfile />} />
             <Route path="/become-a-seller" element={<BecomeASeller />} />
 

@@ -32,7 +32,7 @@ export default function useUsers() {
             setModal(false);
         }
         if (values?._id)
-            dispatch(updateUserAction(values?._id))
+            dispatch(updateUserAction(values?._id, values))
 
         else
             dispatch(addUserAction(values, onSuccess))
@@ -81,5 +81,5 @@ export default function useUsers() {
     })
 
 
-    return { modal, updatedList, menu, userValues, handleChange, handleDelete, handleSubmit, handleViewUser, setModal }
+    return { modal, updatedList, menu, userValues, handleChange, handleSubmit, setModal }
 }

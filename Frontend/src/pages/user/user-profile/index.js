@@ -10,7 +10,7 @@ export default function EditUser() {
     const dispatch = useDispatch()
 
     const handleSubmit = async (values) => {
-        dispatch(updateUserAction(values?._id))
+        dispatch(updateUserAction(user?._id, values))
     }
 
     const handleEnter = (event) => {
@@ -38,15 +38,14 @@ export default function EditUser() {
                     <h5 className="text-center mt-3">Edit Your Profile</h5>
                     <div className="grid grid-cols-10 gap-3 w-[35%] p-5 border-[1px] border-gray-500 mb-4 rounded">
                         {userObjArray.map(({ name, placeHolder, intputType, options }, index) => (
-                            <div className={`${index === userObjArray?.length - 1 ? "col-span-10" : "lg:col-span-5"}`}>
-
+                            <div className={`${index === userObjArray?.length - 2 || index === userObjArray?.length - 1 ? "col-span-10" : "lg:col-span-5"}`}>
                                 <label className="flex justify-start text-start">{placeHolder}<b className="text-red-500 ml-1 mt-1">*</b></label>
                                 {intputType !== 'select' ?
                                     <>
                                         <Field
                                             value={props?.values?.[name]}
                                             onKeyDown={handleEnter}
-                                            onChange={(e) => handleChange(e, props.setFieldValue)}
+                                            onChange={(e) => handleChange(e, props?.setFieldValue)}
                                             placeholder={`Enter the ${placeHolder}`}
                                             name={name}
                                             disabled={name === "role" || name === "email"}

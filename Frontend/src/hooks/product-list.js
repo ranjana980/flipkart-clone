@@ -82,5 +82,5 @@ export default function useProducts() {
     })
 
 
-    return { modal, updatedList, menu, handleChange, handleDelete, handleSubmit, setModal }
+    return { modal, updatedList, menu, handleChange, productValue, handleSubmit, setModal }
 }

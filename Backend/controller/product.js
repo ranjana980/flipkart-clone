@@ -15,13 +15,26 @@ const getProducts = async (req, res) => {
 }
 
 const addProduct = async (req, res) => {
-    const { product_name, category, size, photo } = req.body
+
+    const {
+        title,
+        price,
+        description,
+        category,
+        image,
+        rating,
+        deliveryCharge
+    } = req.body
+
     try {
         const product = new Products({
-            product_name: product_name,
-            category: category,
-            size: size,
-            photo: photo,
+            title,
+            price,
+            description,
+            category,
+            image,
+            rating,
+            deliveryCharge
         });
 
         // Save the new product to the database
@@ -44,11 +57,33 @@ const addProduct = async (req, res) => {
 const deleteProductById = async (req, res) => {
     const { id } = req.params
     const products = await Products.findOneAndDelete({ _id: id })
+    console.log(products, 'iddd', id)
     const updatedList = await Products.find()
     try {
         res.json({
             code: 200,
             data: updatedList
+        })
+    }
+    catch (err) {
+        console.log(err, 'err')
+        res.json({
+            code: 400,
+            msg: 'somthing went wrong'
+        })
+    }
+}
+
+
+
+const addToCart = async (req, res) => {
+    const { data } = req.body
+    const existingUser = await User.findByIdAndUpdate({ _id: data._id }, { $set: data })
+    try {
+        res.json({
+            code: 200,
+            data: existingUser,
+            msg: "Added to cart successfully"
         })
     }
     catch (err) {
@@ -59,16 +94,15 @@ const deleteProductById = async (req, res) => {
     }
 }
 
-
-
-const addToCard = async (req, res) => {
+const removeToCart = async (req, res) => {
     const { data } = req.body
-    const existingUser = await User.findByIdAndUpdate({ _id: data._id }, { $set: data })
+    const userList = await User.findByIdAndUpdate({ _id: data?._id }, { $set: data })
+    const updatedUser = await User.findOne({ _id: data?._id })
     try {
         res.json({
             code: 200,
-            data: existingUser,
-            msg: "Added to cart successfully"
+            data: updatedUser,
+            msg: "Remove from cart Successfully"
         })
     }
     catch (err) {
@@ -96,4 +130,4 @@ const updateProductById = async () => {
         })
     }
 }
-module.exports = { getProducts, addProduct, addToCard, deleteProductById, updateProductById }
+module.exports = { getProducts, addProduct, addToCart, removeToCart, deleteProductById, updateProductById }

@@ -7,14 +7,35 @@ import {
 import './style.css'
 import { useNavigate } from "react-router-dom";
 import IconRenderer from "../../utils/icons";
+import swal from 'sweetalert';
 import { navBarItems } from "../../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
+import { logOutUserAction } from "../../entities/auth-reducer";
 
 export default function SideNavbar() {
     const navigate = useNavigate();
     const [id, setId] = useState("");
     const { menu } = useSelector((state) => state.style)
+    const { user } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
+
+    const handleAddProduct = () => {
+
+    }
+
+    const handleAddUser = () => {
+
+    }
+
+    const handleLogout = () => {
+        const onSuccess = () => {
+            localStorage.removeItem("userId")
+            navigate('/')
+            swal('Logout SuccessFully')
+        }
+        dispatch(logOutUserAction(user?._id, onSuccess))
+
+    }
 
 
     return (
@@ -58,13 +79,16 @@ export default function SideNavbar() {
                                     />
                                 ))}
                         </div>
-                        {item.subnavMenu.length > 1 && id === item.label && (
+                        {item?.subnavMenu.length > 1 && id === item.label && (
                             <div className="bg-white text-start absolute w-[150px]  ml-3 p-2 rounded-[5px]">
                                 {item.subnavMenu?.map(({ label, route }, index1) => (
                                     <div
                                         key={`${label}-${index1}`}
                                         className="p-[4px] rounded-[5px] hover:bg-gray-100 cursor-pointer"
-                                        onClick={() => navigate(route)}
+                                        onClick={() => {
+                                            if (route === '/logout') handleLogout()
+                                            else navigate(route)
+                                        }}
                                     >
                                         <p className="p-[4px] text-black leading-[0px] text-sm">
                                             {label}
@@ -86,6 +110,6 @@ export default function SideNavbar() {
                     <KeyboardArrowRight style={{ fontSize: "25px" }} />
                 )}
             </div>
-        </div>
+        </div >
     );
 }

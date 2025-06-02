@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './styles.scss'
-import { bannerSliderItems } from "../../utils/constant";
+import { bannerSliderItems } from "../../../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductsAction } from "../../entities/product-reducer";
+import { getProductsAction } from "../../../entities/product-reducer";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
@@ -17,34 +17,43 @@ export default function HomePage() {
       const category = []
       userProducts?.map((product) => {
         if (!category.includes(product?.category)) {
-          category.push(product.category)
+          if (product?.subcategory) {
+            category.push("")
+          }
+          else {
+            category.push(product.category)
+          }
         }
       })
       const products = []
       category?.map((item) => {
-        const categoryData = userProducts?.filter((filterValue) => item === filterValue?.category)
+        const categoryData = userProducts?.filter((filterValue) => item === filterValue?.category && !filterValue.subcategory)
         products.push({ category: item, products: categoryData })
         setproductList(products)
       })
       dispatch(getProductsAction())
     }
-  }, [])
+  }, [userProducts])
 
   const responsive = {
     superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 6,
+      breakpoint: { max: 3000, min: 1025 },
+      items: 5,
     },
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 6,
+      breakpoint: { max: 1025, min: 768 },
+      items: 5,
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
+      breakpoint: { max: 768, min: 425 },
       items: 3,
     },
+    largeMobile: {
+      breakpoint: { max: 425, min: 320 },
+      items: 2,
+    },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: { max: 320, min: 0 },
       items: 2,
     },
   };
@@ -83,6 +92,7 @@ export default function HomePage() {
               infiniteLoop={true}
               autoPlay={true}
               dynamicHeight={true}
+              showDots
             >
               {bannerSliderItems.map(({ image }) => (
                 <div>
@@ -96,39 +106,27 @@ export default function HomePage() {
         </div>
       </div>
       {productList?.map((product) => (
-        <div className="bg-white text-start m-3" key={product?.category}>
+        <>{product?.category !== "" && <div className="bg-white text-start m-3" key={product?.category}>
           <b className="pl-[10px] pb-[30px] text-[25px] captilize">Best of {product?.category}</b>
           <Carousel
-            height={600}
-            className="grid lg:grid-cols-10 xs:grid-cols-12 ml-1 mr-7 "
             swipeable={true}
             responsive={responsive}
             dynamicHeight={true}
           >
             {product?.products.map((item) => (
-              <>{item?.subCategories?.length > 0 ?
-                <Link className="lg:col-auto cursor-pointer xs:col-span-6 sm:col-span-4 md:col-span-4   xs:ml-2 " to={`${item?.category}/${item?.subCategories[0]?.category}`}>
-                  <img
-                    style={{ height: "300px", width: "300px" }}
-                    className=" p-2"
-                    src={item.image}
-                  />
-                  <b className="ml-2 text-center"
-                  >{item.title}</b>
-                  <h5 className="text-center">From $ {item.price}</h5>
-                </Link> : <div className="lg:col-auto cursor-pointer xs:col-span-6 sm:col-span-4 md:col-span-4   xs:ml-2 ">
-                  <img
-                    style={{ height: "300px", width: "300px" }}
-                    className=" p-2"
-                    src={item.image}
-                  />
-                  <b className="ml-2 text-center"
-                  >{item.title}</b>
-                  <h5 className="text-center">From $ {item.price}</h5>
-                </div>}</>
+              <Link className=" cursor-pointer  xs:ml-2 " to={`/${item?.category}/${item?.title?.toLowerCase()}`}>
+                <img
+                  style={{ height: "300px", width: "300px" }}
+                  className=" p-2"
+                  src={item.image}
+                />
+                <b className="ml-2 text-center"
+                >{item.title}</b>
+                <h5 className="text-center">From $ {item.price}</h5>
+              </Link>
             ))}
           </Carousel>
-        </div >
+        </div >}</>
       ))
       }
     </>

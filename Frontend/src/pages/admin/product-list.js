@@ -6,7 +6,7 @@ import { productColumns } from "../../utils/constant";
 import useProducts from "../../hooks/product-list";
 
 export default function AdminProductList() {
-  const { modal, updatedList, menu, handleChange, productValues, handleSubmit, setModal } = useProducts()
+  const { modal, updatedList, menu, handleChange, productValue, handleSubmit, setModal } = useProducts()
 
   return (
     <div className={`${menu ? 'w-[85%] left-[15%]' : 'w-[95%] left-[5%]'}   absolute  top-[70px] right-0 }`}>
@@ -17,8 +17,8 @@ export default function AdminProductList() {
         keyboard={false}
       >
         <ProductForm
-          buttonText="Add"
-          initialValues={productValues}
+          buttonText={productValue?._id}
+          initialValues={productValue}
           validationSchema={productSchema}
           handleSubmit={handleSubmit}
           productArrObj={productObjArray}

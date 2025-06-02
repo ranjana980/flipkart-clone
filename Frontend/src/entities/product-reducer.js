@@ -1,6 +1,6 @@
 import axios from "axios";
 import { baseUrl } from "../api/baseUrl";
-import { getProducts, addToCart, updateProduct, addUser, deleteProduct } from "../api/routes";
+import { getProducts, updateProduct, addUser, deleteProduct } from "../api/routes";
 
 // Initial state
 const initialValues = {
@@ -23,9 +23,7 @@ const ACTION_TYPE = {
     DELETE_PRODUCT_REQUEST: "DELETE_PRODUCT_REQUEST",
     DELETE_PRODUCT_SUCCESS: "DELETE_PRODUCT_SUCCESS",
     DELETE_PRODUCT_FAILURE: "DELETE_PRODUCT_FAILURE",
-    ADD_TO_CART_REQUEST: "ADD_TO_CART_REQUEST",
-    ADD_TO_CART_SUCCESS: " ADD_TO_CART_SUCCESS",
-    ADD_TO_CART_FAILURE: "ADD_TO_CART_FAILURE",
+
 };
 
 // Reducer function
@@ -37,12 +35,6 @@ export default function ProductReducer(state = initialValues, action) {
             return { ...state, fetched: false, productList: action.payload };
         case ACTION_TYPE.GET_PRODUCTS_FAILURE:
             return { ...state, fetching: false, error: action.payload };
-        case ACTION_TYPE.ADD_TO_CART_REQUEST:
-            return { ...state, fetching: true };
-        case ACTION_TYPE.ADD_TO_CART_SUCCESS:
-            return { ...state, fetching: false, user: action.payload };
-        case ACTION_TYPE.ADD_TO_CART_FAILURE:
-            return { ...state, fetching: false, error: action.payload, user: null };
         case ACTION_TYPE.ADD_PRODUCT_REQUEST:
             return { ...state, fetching: true };
         case ACTION_TYPE.ADD_PRODUCT_SUCCESS:
@@ -142,7 +134,7 @@ export const deleteProductAction = (id) => {
             dispatch({
                 type: ACTION_TYPE.DELETE_PRODUCT_REQUEST,
             });
-            const result = await axios.get(`${baseUrl}/api${deleteProduct}/${id}}`)
+            const result = await axios.delete(`${baseUrl}/api${deleteProduct}/${id}`)
             if (result.data.code === 200) {
                 dispatch({
                     type: ACTION_TYPE.DELETE_PRODUCT_SUCCESS,
@@ -159,27 +151,6 @@ export const deleteProductAction = (id) => {
 };
 
 
-export const addToCartAction = (data) => {
-    return async function (dispatch) {
-        try {
-            dispatch({
-                type: ACTION_TYPE.ADD_TO_CART_REQUEST
-            });
 
-            const result = await axios.post(`${baseUrl}/api${addToCart}`, { data })
-            if (result.data.code === 200) {
-                dispatch({
-                    type: ACTION_TYPE.ADD_TO_CART_SUCCESS,
-                    payload: { ...result.data.data }
-                });
-            }
-        } catch (error) {
-            dispatch({
-                type: ACTION_TYPE.ADD_TO_CART_FAILURE,
-                payload: error.message
-            });
-        }
-    }
-}
 
 
