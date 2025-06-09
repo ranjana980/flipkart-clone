@@ -20,7 +20,8 @@ import {
     Notifications,
     AirplanemodeActiveRounded,
     GetAppSharp,
-    Dashboard
+    Dashboard,
+    Payment
 } from "@material-ui/icons";
 
 const IconRenderer = ({ iconName, className, style }) => {
@@ -69,6 +70,14 @@ const IconRenderer = ({ iconName, className, style }) => {
             return <GetAppSharp className={className} style={style} />;
         case "Dashboard":
             return <Dashboard className={className} style={style} />;
+        case "Card":
+            return <Payment className={className} style={style} />;
+        case "Gpay":
+            return <Payment className={className} style={style} />;
+        case "PhonePay":
+            return <Payment className={className} style={style} />;
+        case "Paypal":
+            return <Payment className={className} style={style} />;
         default:
             return null;
     }

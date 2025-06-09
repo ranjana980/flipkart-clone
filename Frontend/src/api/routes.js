@@ -7,6 +7,7 @@ const getProducts = "/get_products"
 const verifyOtp = "/verify_otp"
 const addToCart = '/add_to_cart'
 const removeToCart = '/remove_to_cart'
+const createPayemnt = "/create-payment"
 const adminAuth = '/admin_auth'
 const addUser = '/add_user'
 const updateUser = '/update_user'
@@ -26,6 +27,7 @@ export {
     getProducts,
     addToCart,
     removeToCart,
+    createPayemnt,
     adminAuth,
     deleteProduct,
     addUser,

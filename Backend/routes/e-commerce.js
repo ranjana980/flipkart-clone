@@ -16,5 +16,7 @@ router.delete('/delete_product/:id', products.deleteProductById)
 router.post('/update_product/:id', products.updateProductById)
 router.post('/add_to_cart', products.addToCart)
 router.post('/remove_to_cart', products.removeToCart)
+router.post('/create-payment', user.craetePayment)
+router.post('/verify-payment', user.verifyPayment)
 router.post('/admin_auth', user.adminAuth)
 module.exports = router

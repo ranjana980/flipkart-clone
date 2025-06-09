@@ -5,13 +5,13 @@ import { Link, useParams } from "react-router-dom"
 import { addToCartAction } from "../../../entities/auth-reducer"
 
 export default function ProductCotegory() {
-    const { category, subcategory } = useParams()
+    const { subcategory } = useParams()
     const { user } = useSelector((state) => state.auth)
     const { productList } = useSelector((state) => state.products)
     const dispatch = useDispatch()
 
     const handleAddToCart = (product) => {
-        user.cart.push(product)
+        user.cart.push({ ...product, quantity: 1 })
         dispatch(addToCartAction(user))
     }
 
@@ -38,8 +38,7 @@ export default function ProductCotegory() {
                     <h5 className="text-center">From $ {categoryProduct.price}</h5>
                     <div className="flex justify-center">
                         <div className="flex justify-center gap-4  absolute bottom-[15px] text-white">
-                            {/* <button className="bg-[orange] p-2 rounded  " onClick={() => handleAddToCart(categoryProduct)}> Add to Cart</button> */}
-                            {/* <button className="bg-[blue] p-2 rounded">Buy Now</button> */}
+                            <button className="bg-[orange] p-2 rounded  " onClick={() => handleAddToCart(categoryProduct)}> Add to Cart</button>
                         </div>
                     </div>
                 </Link>

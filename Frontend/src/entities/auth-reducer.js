@@ -1,6 +1,6 @@
 import axios from "axios";
 import { baseUrl } from "../api/baseUrl";
-import { sendOtp, verifyOtp, adminAuth, getUser, logOutUser, addToCart, removeToCart } from "../api/routes";
+import { sendOtp, verifyOtp, adminAuth, getUser, logOutUser, addToCart, removeToCart, createPayemnt } from "../api/routes";
 
 // Initial state
 const initialValues = {
@@ -32,8 +32,12 @@ const ACTION_TYPE = {
     REMOVE_TO_CART_REQUEST: "REMOVE_TO_CART_REQUEST",
     REMOVE_TO_CART_SUCCESS: " REMOVE_TO_CART_SUCCESS",
     REMOVE_TO_CART_SUCCESS: "REMOVE_TO_CART_SUCCESS",
-
-
+    CREATE_PAYEMNET_REQUEST: "CREATE_PAYEMNET_REQUEST",
+    CREATE_PAYEMNET_SUCCESS: " CREATE_PAYEMNET_SUCCESS",
+    CREATE_PAYEMNET_SUCCESS: "CREATE_PAYEMNET_SUCCESS",
+    VERIFY_PAYMENT_REQUEST: "VERIFY_PAYMENT_REQUEST",
+    VERIFY_PAYMENT_SUCCESS: " VERIFY_PAYMENT_SUCCESS",
+    VERIFY_PAYMENT_FAILURE: "VERIFY_PAYMENT_FAILURE",
 };
 
 // Reducer function
@@ -81,6 +85,18 @@ export default function AuthReducer(state = initialValues, action) {
         case ACTION_TYPE.REMOVE_TO_CART_SUCCESS:
             return { ...state, fetching: false, user: action.payload };
         case ACTION_TYPE.REMOVE_TO_CART_FAILURE:
+            return { ...state, fetching: false, error: action.payload, user: null };
+        case ACTION_TYPE.CREATE_PAYEMNET_REQUEST:
+            return { ...state, fetching: true };
+        case ACTION_TYPE.CREATE_PAYEMNET_SUCCESS:
+            return { ...state, fetching: false, user: action.payload };
+        case ACTION_TYPE.CREATE_PAYEMNET_FAILURE:
+            return { ...state, fetching: false, error: action.payload, user: null };
+        case ACTION_TYPE.VERIFY_PAYMENT_REQUEST:
+            return { ...state, fetching: true };
+        case ACTION_TYPE.VERIFY_PAYMENT_SUCCESS:
+            return { ...state, fetching: false, user: action.payload };
+        case ACTION_TYPE.VERIFY_PAYMENT_FAILURE:
             return { ...state, fetching: false, error: action.payload, user: null };
         default:
             return state;
@@ -252,6 +268,48 @@ export const removeToCartAction = (data) => {
     }
 }
 
+export const createPayemntAction = (data, callBack) => {
+    return async function (dispatch) {
+        try {
+            dispatch({
+                type: ACTION_TYPE.CREATE_PAYEMNET_REQUEST
+            });
+            const result = await axios.post(`${baseUrl}/api${createPayemnt}`, { data })
+            if (result.data.code === 201) {
+                dispatch({
+                    type: ACTION_TYPE.CREATE_PAYEMNET_SUCCESS,
+                    payload: { ...result.data.data }
+                });
+                callBack && callBack(result.data.data)
+            }
+        } catch (error) {
+            dispatch({
+                type: ACTION_TYPE.CREATE_PAYEMNET_FAILURE,
+                payload: error.message
+            });
+        }
+    }
+}
 
 
-
+export const verifyPaymentAction = (data) => {
+    return async function (dispatch) {
+        try {
+            dispatch({
+                type: ACTION_TYPE.VERIFY_PAYEMNET_REQUEST
+            });
+            const result = await axios.post(`${baseUrl}/api${createPayemnt}`, { data })
+            if (result.data.code === 200) {
+                dispatch({
+                    type: ACTION_TYPE.VERIFY_OTP_SUCCESS,
+                    payload: { ...result.data.data }
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: ACTION_TYPE.VERIFY_OTP_FAILURE,
+                payload: error.message
+            });
+        }
+    }
+}

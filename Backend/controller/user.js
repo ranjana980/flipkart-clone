@@ -1,7 +1,15 @@
 const crypto = require('crypto');
+const Razorpay = require("razorpay")
 const nodemailer = require('nodemailer');
 const Users = require('../models/user');
 const Admin = require('../models/admin');
+const RAZORPAY_KEY_ID = process.env.RZP_TEST_KEY
+const RAZORPAY_KEY_SECRET = process.env.RZP_TEST_SECRET
+
+const razorpay = new Razorpay({
+    key_id: RAZORPAY_KEY_ID,
+    key_secret: RAZORPAY_KEY_SECRET,
+});
 
 require('dotenv').config();
 
@@ -169,6 +177,8 @@ const getUserById = async (req, res) => {
                 last_name: existingUser.last_name,
                 gender: existingUser.gender,
                 is_logged_in: true,
+                wishlist: existingUser.wishlist,
+                cart: existingUser.cart,
                 role: existingUser.role,
                 password: existingUser.password,
                 notifications: existingUser.notifications,
@@ -342,5 +352,38 @@ const adminAuth = async (req, res) => {
 }
 
 
-module.exports = { sendOtp, verifyOtp, getUserById, getUser, adminAuth, deleteUserById, updateUser, addUser, logOutUser }
+const craetePayment = async (req, res) => {
+    try {
+        const options = {
+            amount: req.body.data.amount, // amount in the smallest currency unit, in our case ( INR ) we will be using paisa ( RS * 100) 
+            currency: 'INR',
+            receipt: `receipt_${Math.random().toString(36).substring(7)}`, //Unique and random receipt ID
+        };
+        console.log(razorpay, 'razz')
+        const order = await razorpay.orders.create(options);
+        res.status(200).json({ code: 201, message: "order created successfully", data: order });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+
+const verifyPayment = async (req, res) => {
+    try {
+        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body.data;
+        const sign = razorpay_order_id + '|' + razorpay_payment_id;
+        const expectedSign = crypto.createHmac('sha256', RAZORPAY_KEY_SECRET)
+            .update(sign.toString())
+            .digest('hex');
+        if (razorpay_signature === expectedSign) {
+            res.status(200).json({ message: 'Payment verified successfully' });
+        } else {
+            res.status(400).json({ error: 'Invalid payment signature' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+module.exports = { sendOtp, verifyOtp, getUserById, getUser, adminAuth, deleteUserById, updateUser, addUser, logOutUser, craetePayment, verifyPayment }
 

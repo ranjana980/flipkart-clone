@@ -29,7 +29,6 @@ export default function UserNavbar() {
             swal('Logout SuccessFully')
         }
         dispatch(logOutUserAction(user?._id, onSuccess))
-
     }
 
     return (
@@ -75,7 +74,7 @@ export default function UserNavbar() {
                                 className='hidden md:block'>
                                 Cart
                             </b></div>
-                        {user?.cart?.length > 0 && <h6 className={`${isHome ? 'text-[white] bg-[blue]' : 'text-[blue] bg-white'} absolute bottom-[24px]  h-5 w-5 rounded-full`}>{user?.cart?.length}</h6>}
+                        {user?.cart?.length > 0 && <h6 className={`${isHome ? 'text-[white] bg-[blue]' : 'text-[blue] bg-white'} absolute bottom-[7px]  h-5 w-5 rounded-full`}>{user?.cart?.length}</h6>}
                     </Link>
                     <Link to={"/become-a-seller"} className={isHome ? "text-black !hidden md:!block" : "text-white !hidden md:!block"}> <StoreOutlined /> Become a Seller</Link>
                     <div className='flex gap-3'>
